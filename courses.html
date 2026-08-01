@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Курсы</title>
+<link rel="stylesheet" href="css/style.css"><style>
+
+    body{background:linear-gradient(
+        180deg,
+        #e45a1f,
+        #ff8c5a
+    );}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><img src="img/Frame 23.png"></div>
+
+    <nav>
+    <a href="about.html" class="nav-btn">О НАС</a>
+    <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
+    <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
+    </nav>
+</header>
+
+<main class="courses-page">
+
+<aside class="filters">
+
+    <h2>🔍 Подбор программы</h2>
+
+    <div class="filter-group">
+
+        <h3>📚 Направление</h3>
+
+        <button class="filter-btn" data-type="direction" data-value="rd">
+            Риторика и Деньги
+        </button>
+
+        <button class="filter-btn" data-type="direction" data-value="music">
+            Эмоциональный интеллект
+        </button>
+
+        <button class="filter-btn" data-type="direction" data-value="art">
+            Диагностика
+        </button>
+
+        <button class="filter-btn" data-type="direction" data-value="programming">
+            Арт-терапия
+        </button>
+
+    </div>
+
+    <div class="filter-group">
+
+        <h3>👶  Возраст</h3>
+
+        <button class="filter-btn" data-type="age" data-value="5-9">
+            5–9 лет
+        </button>
+
+        <button class="filter-btn" data-type="age" data-value="10-13">
+            10–13 лет
+        </button>
+
+        <button class="filter-btn" data-type="age" data-value="14-18">
+            14–18 лет
+        </button>
+
+        <button class="filter-btn" data-type="age" data-value="7+">
+            7+ лет
+        </button>
+
+    </div>
+
+    <div class="filter-group">
+
+        <h3>👥  Формат</h3>
+
+        <button class="filter-btn" data-type="format" data-value="group">
+            Групповые занятия
+        </button>
+
+        <button class="filter-btn" data-type="format" data-value="individual">
+            Индивидуально
+        </button>
+
+    </div>
+
+    <button class="reset-filters">
+        🗑 Сбросить подбор
+    </button>
+
+</aside>
+
+    <section class="courses-grid">
+
+       
+          <div class="course-card"
+              data-age="all"
+              data-direction="art"
+              data-format="group">
+            <div class="badge">ХИТ</div>
+            <div class="course-photo"><img src="img/mppcFq3DGt9bjiSggGPrAIfJs1wMKVLcjJnD3ilXtty2ujEzFQMJ6T56Ti9t0TuLL0e433uZ_P8csJc0zgiIcyul.jpg" alt=""></div>
+            <h3>Диагностика ребёнка</h3>
+            <p>Бесплатно</p>
+            <a href="index.html#register" class="course-btn">НАЧАТЬ</a>
+        </div>
+
+        
+          <div class="course-card"
+              data-age="5-9"
+              data-direction="rd"
+              data-format="group">
+            <div class="course-photo"><img src="img/949oxVBDNR2h3P2FiwXvbZHcX1LHDj846VNQ4KSgiuyD9Mc5WmolSLmVOmNdlggSUyyS52oKSyDfUP96lCR0_grn.jpg" alt=""></div>
+            <h3>Риторика и Деньги. Первая ступень</h3>
+            <p>2600 ₽</p>
+            <a href="index.html#register" class="course-btn">НАЧАТЬ</a>
+        </div>
+
+        
+          <div class="course-card"
+              data-age="5-9"
+              data-direction="music"
+              data-format="group">
+            <div class="badge">ХИТ</div>
+            <div class="course-photo"><img src="img/5rtGjruBBAIdSMIFbJitKO8MdcjtJba72Lj-rAzZHaf0kuOH6R42rptaPqMT_BJ7QNv5OKlpKT4dyxIf5hywuKCg.jpg" alt=""></div>
+            <h3>«Эмоциональный и стратегический интеллект"</h3>
+            <p>2600 ₽</p>
+            <a href="index.html#register" class="course-btn">
+    НАЧАТЬ
+</a>
+        </div>
+
+       
+          <div class="course-card"
+              data-age="14-18"
+              data-direction="rd"
+              data-format="group">
+            <div class="course-photo"><img src="img/2ODEmvKbyqr8vmq2hBNnbLrQSjNrm9xGhMmoUMZdILW3wo7DloiclKYaX0uHa2QYVZUbGug6kBehFhZXLy0PskHx.jpg" alt=""></div>
+            <h3>Риторика и Деньги. Вторая ступень
+</h3>
+            <p>2600 ₽</p>
+            <a href="index.html#register" class="course-btn">
+    НАЧАТЬ
+</a>
+        </div>
+
+        
+          <div class="course-card"
+              data-age="7+"
+              data-direction="programming"
+              data-format="individual">
+            <div class="course-photo"><img src="img/j8j2qawhsrPmnDmJyrE1UbIlVhsOoRREPcXgx0gIjwJ__T9rizrKaSsZFlh9cyxqpq_RGD97Y0e3vYFEpkN20-5Y.jpg" alt=""></div>
+            <h3>Арт Терапия</h3>
+            <p>2600 ₽</p>
+            <a href="index.html#register" class="course-btn">
+    НАЧАТЬ
+</a>
+        </div>
+
+        
+          <div class="course-card"
+              data-age="5-9"
+              data-direction="art"
+              data-format="individual">
+            <div class="badge new">НОВОЕ</div>
+            <div class="course-photo"><img src="img/_rABsYpVmRu7lBsdLFjQY-pMVBDgaRLMOslQrWzYrPpO5vj9Kuezbs4VHHAWCte-2RKXMQDgyOiFQPfJLJDKqhhS.jpg" alt=""></div>
+            <h3>Видео-курс «Нейро Сказки»</h3>
+            <p>1200  ₽</p>
+            <a href="index.html#register" class="course-btn">
+    НАЧАТЬ
+</a>
+        </div>
+
+    </section>
+
+</main>
+
+<button id="scrollTopBtn">↑</button>
+
+<footer id="contacts">
+
+    <div class="footer-left">
+
+        <img src="img/logo.png" alt="">
+
+        <p>
+            Студия развития детей
+            «Искусство Разума»
+        </p>
+
+    </div>
+
+    <div class="footer-center">
+
+        <h3>Навигация</h3>
+
+        <a href="index.html">Главная</a>
+        <a href="courses.html">Курсы</a>
+        <a href="about.html">О нас</a>
+
+    </div>
+
+    <div class="footer-right">
+
+        <h3>Контакты</h3>
+
+        <p>Телефон</p>
+
+        <p>Email</p>
+
+        <button class="faq-btn">
+            FAQ
+        </button>
+
+    </div>
+
+</footer>
+<script>
+
+let currentAge = "";
+let currentDirection = "";
+let currentFormat = "";
+
+const cards = document.querySelectorAll(".course-card");
+
+document.querySelectorAll(".filter-btn").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        const type = button.dataset.type;
+        const value = button.dataset.value;
+
+        const isActive = button.classList.contains("active");
+
+        document
+            .querySelectorAll(`[data-type="${type}"]`)
+            .forEach(btn=>btn.classList.remove("active"));
+
+        if(isActive){
+
+            if(type==="age") currentAge="";
+
+            if(type==="direction") currentDirection="";
+
+            if(type==="format") currentFormat="";
+
+        }else{
+
+            button.classList.add("active");
+
+            if(type==="age") currentAge=value;
+
+            if(type==="direction") currentDirection=value;
+
+            if(type==="format") currentFormat=value;
+
+        }
+
+        filterCourses();
+
+    });
+
+});
+
+function filterCourses(){
+
+    document.querySelector(".reset-filters").addEventListener("click",()=>{
+
+    currentAge="";
+    currentDirection="";
+    currentFormat="";
+
+    document.querySelectorAll(".filter-btn").forEach(btn=>{
+
+        btn.classList.remove("active");
+
+    });
+
+    filterCourses();
+
+});
+    cards.forEach(card => {
+
+        const ageMatch =
+    currentAge === "" ||
+    card.dataset.age === currentAge;
+
+        const directionMatch =
+    currentDirection === "" ||
+    card.dataset.direction === currentDirection;
+
+        const formatMatch =
+    currentFormat === "" ||
+    card.dataset.format === currentFormat;
+
+        if(ageMatch && directionMatch && formatMatch){
+
+    card.style.display = "";
+
+}else{
+
+    card.style.display = "none";
+
+}
+
+    });
+
+}
+
+</script>
+<!-- //////////// -->
+ <script>
+
+const scrollTopBtn =
+document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 500){
+
+        scrollTopBtn.classList.add("show");
+
+    }else{
+
+        scrollTopBtn.classList.remove("show");
+    }
+});
+
+scrollTopBtn.addEventListener("click", () => {
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+    });
+});
+
+</script>
+
+</body>
+</html>

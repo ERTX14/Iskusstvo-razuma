@@ -1,0 +1,1269 @@
+/* ---------- 0. ШРИФТЫ И ПЕРЕМЕННЫЕ ---------- */
+
+@font-face {
+    font-family: "SchoolTitle";
+    src: url("../fonts/Сomediant\ script.ttf") format("truetype"),
+         url("../fonts/Сomediant\ script.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "SchoolText";
+    src: url("../fonts/TheBoldFontPro(CyrLat)-Bold.ttf") format("truetype"),
+         url("../fonts/TheBoldFontPro(CyrLat)-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* @font-face {
+    font-family: "ArtMind";
+    src: url("../fonts/ArtMind.woff2") format("woff2"),
+         url("../fonts/ArtMind.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+} */
+
+:root{
+    --green:#1b2d1c;
+    --beige:#ddddc6;
+    --gold:#d9b215;
+    --light:#f7f6f2;
+    --radius:24px;
+    --shadow: 0 12px 35px rgba(0,0,0,.08);
+    --transition:.35s ease;
+}
+
+/* ---------- 1. ГЛОБАЛЬНЫЕ НАСТРОЙКИ ---------- */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+}
+
+body{
+    margin:0;
+    background: var(--light);
+    color:#222;
+    /* Единый базовый шрифт для всего документа до переопределения */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Переопределение базовых тегов после body */
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    line-height: inherit;
+}
+
+/* Специфичные семейства шрифтов */
+h1,
+/* h2, */
+.hero-title,
+.logo {
+    font-family: "SchoolTitle";
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+h2,
+h3,
+h4,
+p,
+a,
+button,
+input,
+.select {
+    font-family: "SchoolText";
+}
+
+/* ---------- 2. ХЕДЕР И ОБЩИЕ ЭЛЕМЕНТЫ ---------- */
+
+header{
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 30px);
+    max-width: 1200px;
+    height: 90px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(247, 247, 247, 0.555);
+    border-radius: 30px;
+}
+
+.logo img{
+    height:55px;
+    display: block;
+}
+
+nav a{
+    text-decoration:none;
+    margin-left:20px;
+    color:#FF4B6E;
+    font-weight:bold;
+    transition: color var(--transition);
+}
+.nav-btn{
+     overflow:hidden;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: #FF4B6E;
+    transition: all var(--transition);
+    text-decoration: none;
+}
+
+.nav-btn::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:0;
+    height:0;
+    background:#FF4B6E;
+    border-radius:40px;
+    transform:translate(-50%,-50%);
+    transition:width var(--transition), height var(--transition);
+    z-index:-1;
+}
+
+.nav-btn:hover::before{
+    width:110%;
+    height:110%;
+}
+
+.nav-btn:hover{
+    color:#2D7A8B;
+}
+
+footer{
+    background:#1f1f1f;
+    color:white;
+    margin-top:80px;
+    padding:50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.footer-left img{
+    height:60px;
+    margin-bottom:15px;
+}
+
+.footer-center,
+.footer-right{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.footer-center a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.footer-center a:hover{
+    color:#FF4B6E;
+}
+
+.faq-btn{
+    margin-top:15px;
+    border:none;
+    padding:12px 25px;
+    border-radius:15px;
+    background:rgb(255, 255, 255);
+    cursor:pointer;
+    font-weight:700;
+    transition: var(--transition);
+}
+
+/* Кнопка скролла вверх */
+#scrollTopBtn{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    width:60px;
+    height:60px;
+    border:none;
+    border-radius:50%;
+    background:#FF4B6E;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+    z-index:9999;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+#scrollTopBtn.show{
+    opacity:1;
+    visibility:visible;
+}
+
+#scrollTopBtn:hover{
+    transform: translateX(-50%) translateY(-5px);
+    background:#FF4B6E;
+}
+
+/* ---------- 3. ГЛАВНАЯ СТРАНИЦА (HERO) ---------- */
+
+.course{
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.95),
+        rgba(255,255,255,.75)
+    );
+    backdrop-filter:blur(10px);
+}
+
+.slide::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(
+        rgba(0,0,0,.45),
+        rgba(0,0,0,.35)
+    );
+    z-index:1;
+}
+
+.hero-slider{
+    position:relative;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+.slide.active{
+    opacity:1;
+}
+
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.slide-list{
+    color:#fff;
+    margin-top:20px;
+    text-align:left;
+    padding-left:25px;
+    font-size:22px;
+}
+
+.slide-list li{
+    margin-bottom:10px;
+}
+
+.slide-content{
+    position:absolute;
+    z-index:2;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    max-width:1100px;
+    text-align:center;
+    padding:40px;
+    backdrop-filter:blur(10px);
+    background:rgba(255, 255, 255, 0.08);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:30px;
+}
+
+.slide.active .slide-content{
+    animation:slideText .8s ease forwards;
+}
+
+@keyframes slideText{
+    from{
+        opacity:0;
+        transform: translate(-50%,-40%);
+    }
+    to{
+        opacity:1;
+        transform: translate(-50%,-50%);
+    }
+}
+
+.slide-content h2{
+    color:white;
+    font-size:30px;
+    line-height:1.15;
+    max-width:800px;
+    margin:auto;
+    text-shadow: 0 4px 20px rgba(227, 227, 227, 0.5);
+}
+
+.slider-dots{
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+   z-index: 8; /* Меньше, чем у кнопок */
+}
+
+.dot{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:white;
+    opacity:.4;
+    cursor:pointer;
+    transition: all var(--transition);
+}
+
+.dot.active{
+    opacity:1;
+    transform:scale(1.3);
+    background:#FF4B6E;
+}
+
+.slider-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:70px;
+    height:70px;
+    border:none;
+    border-radius:50%;
+    background:rgba(250, 250, 250, 0.2);
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    z-index:100;
+    transition: all var(--transition);
+}
+
+.prev{ left:20px; }
+.next{ right:20px; }
+
+.slider-btn:hover{
+    transform:scale(1.12) translateY(-50%);
+    background:white;
+    color:#222;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    position:absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Центрируем горизонтально */
+    bottom: 18%; /* <--- ВНИМАНИЕ НА ЭТО ЗНАЧЕНИЕ! */
+    z-index: 9; /* Над точками навигации (.dot) */
+}
+
+.hero-btn{
+    background:#FF4B6E;
+    color:white;
+    text-decoration:none;
+    padding:16px 25px;
+    border-radius:18px;
+    font-weight:700;
+    transition:all var(--transition);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hero-btn:hover{
+    background:#FF4B6E;
+    transform:translateY(-3px);
+}
+
+/* ---------- 4. РАЗДЕЛ СПЕЦИАЛИСТОВ ---------- */
+
+.teacher-section{
+    width:100%;
+    min-height:600px;
+    display:flex;
+    align-items:flex-end;      /* Фото прижимаются вниз */
+    justify-content:space-between;
+    padding:0;
+    overflow:hidden;
+}
+
+.teacher-info{
+    width:55%;
+    margin:40px;
+    background:#fff;
+    border-radius:35px;
+    padding:35px;
+    z-index:2;
+}
+
+
+.teacher-photo{
+    width:45%;
+    height:600px;
+    display:flex;
+    align-items:flex-end;      /* Фото стоит на "полу" */
+}
+
+.teacher-photo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:bottom;
+    display:block;
+}
+
+.teacher-title .blue{
+    display:block;
+    font-size:58px;
+    color:#2D7A8B;
+    font-weight:900;
+}
+
+.teacher-title .red{
+    display:block;
+    font-size:46px;
+    color:#FF4B6E;
+    font-weight:900;
+}
+
+.teacher-title .sub{
+    display:block;
+    font-size:22px;
+    color:#FF4B6E;
+    margin-top:10px;
+}
+
+.pink-section{ background:#FF4B6E; }
+.orange-section{ background:#FF7258; }
+
+.teacher-info h2{
+    font-size:48px;
+    margin-bottom:30px;
+    color:#FF4B6E;
+}
+
+.teacher-text{
+    display:flex;
+    gap:40px;
+}
+
+.teacher-text p{
+    flex:1;
+}
+
+/* ---------- 5. ЛУЧШИЕ ПРОДАЖИ ---------- */
+
+.bestsellers{
+    background:#2D7A8B;
+    padding:100px 0;
+}
+
+.section-title{
+    text-align:center;
+    font-size:48px;
+    font-weight:700;
+    margin-bottom:50px;
+    color:#ffffff;
+}
+
+.best-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 280px));
+    justify-content:center;
+    gap:25px;
+}
+
+.bestseller{
+    display:flex;
+    flex-direction:column;
+    min-height:430px;
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 5px 11px rgba(0,0,0,.08);
+    position:relative;
+    transition:transform var(--transition);
+}
+
+.bestseller:hover{
+    transform:translateY(-8px);
+}
+
+.badge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:#FF4B6E;
+    color:white;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    z-index:10;
+}
+
+.new{
+    background:#FF7258;
+}
+
+.course-photo{
+    height:180px;
+    background:#efefef;
+    overflow:hidden;
+}
+
+.course-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.bestseller h3{
+    padding:15px 15px 5px;
+    font-size:22px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.course-desc{
+    flex: 1;
+    padding:0 15px;
+    color:#666666;
+    line-height:1.5;
+    overflow-wrap:break-word;
+}
+
+.price{
+    padding:10px 15px;
+    font-size:28px;
+    font-weight:bold;
+    color:#ff4f87;
+}
+
+.free{
+    color:#17a34a;
+}
+
+.course-btn{
+    margin-top:auto;
+    width:calc(100% - 20px);
+    height:50px;
+    margin:15px 10px;
+    border:none;
+    border-radius:15px;
+    background:#FF4B6E;
+    color:white;
+    text-decoration:none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:700;
+    transition:background var(--transition), transform var(--transition);
+    cursor:pointer;
+}
+
+.course-btn:hover{
+    background:#FF4B6E;
+    transform:translateY(-3px);
+}
+
+/* ---------- 6. РЕГИСТРАЦИЯ ---------- */
+
+.registration{
+    max-width:1000px;
+    margin:120px auto;
+    background:white;
+    padding:50px;
+    border-radius:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.registration h2{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:10px;
+    color:#2D7A8B;
+}
+
+.form-subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:40px;
+}
+
+.register-form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#444;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+    padding:15px;
+    border:2px solid #ececec;
+    border-radius:15px;
+    font-size:16px;
+    transition:border-color var(--transition);
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus{
+    outline:none;
+    border-color:#FF4B6E;
+}
+
+.checkbox{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.submit-btn{
+    height:60px;
+    border:none;
+    border-radius:15px;
+    background:#FF4B6E;
+    color:white;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    transition:all var(--transition);
+}
+
+.submit-btn:hover{
+    background:#FF4B6E;
+    transform:translateY(-3px);
+}
+
+/* ---------- 7. СТРАНИЦА "О НАС" ---------- */
+
+.about-hero{
+    min-height:100vh;
+    padding-top:180px;
+    padding-left:80px;
+    padding-right:80px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(180deg, #2D7A8B 0%, #2D7A8B 100%);
+}
+
+.about-hero h1{
+    font-size:90px;
+    line-height:0.9;
+    color:#FF4B6E;
+    margin-bottom:30px;
+    text-shadow: 0 10px 25px rgba(255,79,135,.25);
+}
+
+.about-hero p{
+    max-width:800px;
+    font-size:24px;
+    line-height:1.7;
+    color:#333;
+    background:white;
+    padding:30px;
+    border-radius:30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.1);
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    padding:80px;
+    background:#2D7A8B;
+}
+
+.stat{
+    background:white;
+    border-radius:25px;
+    padding:30px;
+    text-align:center;
+}
+
+.stat h2{
+    color:#FF4B6E;
+    font-size:48px;
+}
+
+.about-cta{
+    background:#FF4B6E;
+    color:white;
+    text-align:center;
+    padding:100px 40px;
+}
+
+.about-cta h2{
+    font-size:48px;
+    margin-bottom:30px;
+}
+
+.about-frame{
+    min-height:100vh;
+    background:linear-gradient(180deg, #2D7A8B 0%, #2D7A8B 100%);
+    padding-bottom:80px;
+    padding-top:140px;
+}
+
+.about-frame__top{
+    max-width:1200px;
+    margin:80px auto;
+    display:grid;
+    grid-template-columns:1fr 500px;
+    gap:50px;
+    align-items:center;
+}
+
+.about-frame__subtitle{
+    background:white;
+    padding:40px;
+    border-radius:30px;
+    font-size:22px;
+    line-height:1.8;
+    color:#333;
+    text-align:left;
+}
+
+.about-frame__title{
+    font-size:72px;
+    color:#FF4B6E;
+    text-transform:uppercase;
+    letter-spacing:4px;
+    text-shadow: 0 8px 20px rgba(255,79,135,.25);
+}
+
+.about-mini{
+    background:white;
+    border-radius:30px;
+    padding:30px;
+    text-align:center;
+    transition:all var(--transition);
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+    min-height:220px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.about-mini:hover{
+    transform:translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.18);
+}
+
+.about-mini h3{
+    font-size:32px;
+    margin-bottom:15px;
+    color:#FF4B6E;
+}
+
+.about-mini p{
+    font-size:18px;
+    line-height:1.7;
+    color:#444;
+}
+
+/* ---------- 8. СТРАНИЦА КУРСОВ ---------- */
+
+.courses-page{
+    display:flex;
+    gap:40px;
+    padding:40px;
+    margin-top: 120px;
+}
+
+.filters{
+    width: 330px;
+    background:rgb(255, 255, 255);
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    height:fit-content;
+}
+
+.filters h2{
+    text-align:center;
+
+    color:#FF4B6E;
+
+    margin-bottom:30px;
+
+    font-size:30px;
+}
+
+.filter-group h3{
+
+    margin-bottom:15px;
+
+    color:#444;
+
+    font-size:18px;
+
+}
+
+.filter-group{
+
+    margin-bottom:30px;
+
+    padding-bottom:25px;
+
+    border-bottom:1px solid #ececec;
+
+}
+.filter-btn {
+
+    width:100%;
+
+    padding:14px 18px;
+
+    margin-bottom:10px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#f3f3f3;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    text-align:left;
+
+    font-size:15px;
+
+}
+    
+   
+
+
+.filter-btn:hover{
+
+    background:#ffe6ef;
+
+    color:#ff4f87;
+
+    transform:translateX(6px);
+
+}
+
+.filter-btn.active{
+    background:#FF4B6E;
+    color:white;
+    box-shadow:0 5px 15px rgba(255,79,135,.4);
+    transform:scale(1.03);
+}
+.reset-filters{
+
+    width:100%;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#1b2d1c;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.reset-filters:hover{
+
+    background:#29472a;
+
+    transform:translateY(-2px);
+
+}
+
+.courses-grid{
+    flex:1;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 280px));
+    justify-content:center;
+    align-content:start;
+    gap:25px;
+}
+
+.course-card{
+    display:flex;
+    flex-direction:column;
+    min-height:420px;
+    background:rgb(255, 255, 255);
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    position:relative;
+    transition:transform var(--transition);
+}
+
+.course-card:hover{
+    transform:translateY(-8px);
+}
+
+.course-card .badge{
+    position:absolute;
+    top:15px;
+    left:15px;
+    background:#FF4B6E;
+    color:white;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:12px;
+    z-index:10;
+}
+
+.course-photo{
+    height:180px;
+    background:#efefef;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.course-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.course-card h3{
+    padding:15px 15px 5px;
+    font-size:22px;
+    overflow-wrap:break-word;
+    word-break:break-word;
+}
+
+.course-card p{
+    margin-bottom:15px;
+    padding:0 15px;
+    color:#FF4B6E;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.course-desc{
+    padding:0 15px;
+    min-height:80px;
+    overflow-wrap:break-word;
+    flex-grow: 1;
+}
+
+.course-card button,
+.course-card .course-btn{
+    width:calc(100% - 20px);
+    height:50px;
+    margin:15px 10px;
+    border:none;
+    border-radius:15px;
+    background:#FF4B6E;
+    color:white;
+    text-decoration:none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:700;
+    cursor:pointer;
+    transition:background var(--transition), transform var(--transition);
+}
+
+.course-card button:hover,
+.course-card .course-btn:hover{
+    background:#FF4B6E;
+    transform:translateY(-3px);
+}
+.courses-page{
+
+    display:flex;
+
+    gap:40px;
+
+    padding:40px;
+
+    margin-top:120px;
+
+    align-items:flex-start;
+
+}
+
+
+/* ---------- 9. АДАПТИВ ---------- */
+
+@media(max-width:1200px){
+    .about-frame__top{
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .about-frame__subtitle{
+        text-align: center;
+    }
+}
+
+@media(max-width:900px){
+    .about-frame{
+        padding-top:170px;
+    }
+    .about-frame__title{
+        font-size:42px;
+    }
+    .stats{
+        grid-template-columns: repeat(2, 1fr);
+        padding:40px;
+    }
+    .about-hero{
+        padding: 40px 20px;
+    }
+    .about-hero h1{
+        font-size: 60px;
+    }
+    .courses-page{
+        flex-direction: column;
+    }
+    .filters{
+        width: 100%;
+    }
+}
+
+
+/* adaptiv */
+/* Адаптивность */
+@media screen and (max-width: 768px) {
+    /* Для телефонов и маленьких планшетов (портретная ориентация) */
+
+    .slide-content h1 { /* Уменьшаем заголовок */
+        font-size: 24px !important; /* Важно перебить inline-стили из HTML */
+        line-height: 1.5;
+    }
+
+    .slide-content ul li { /* Если есть список */
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .slide-content {
+        top: calc(50% + 9vh); /* Сдвигаем текст ниже по центру */
+        padding: 20px; /* Убираем лишние отступы внутри овала */
+    }
+
+    .hero-buttons-new,
+    .slider-dots {
+        bottom: 16%; /* Поднимаем всё вверх, т.к. экран стал выше */
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Для средних планшетов (альбомная/портретная ориентация) */
+
+    .slide-content h1 {
+        font-size: 36px;
+    }
+
+    .slide-content {
+        max-width: none; /* Растягиваем текст на всю ширину */
+        width: 80%;
+        left: 10%;
+    }
+
+    .hero-buttons-new a {
+        padding: 14px 28px; /* Делаем кнопки чуть уже для удобства */
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+    /* Для больших планшетов и ноутбуков с маленьким разрешением */
+
+    .slide-content h1 {
+        font-size: 48px;
+    }
+
+    .hero-buttons-new,
+    .slider-dots {
+        bottom: auto; /* Возвращаемся к фиксированным значениям */
+        transform: none;
+    }
+
+    .hero-buttons-new {
+        position: relative; /* Вытаскиваем их из абсолютного позиционирования */
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 40px; /* Отступ от текста */
+    }
+
+    .slider-dots {
+        margin-top: 20px; /* Переносим точки вниз */
+    }
+}
+
+
+
+
+.course-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.course-modal.active{
+    display:flex;
+}
+
+.modal-content{
+    width:900px;
+    max-width:95%;
+    background:#fff;
+    border-radius:35px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+}
+
+.modal-left{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:550px;
+}
+
+.modal-left img{
+    width:90%;
+    max-height:450px;
+    object-fit:contain;
+}
+
+.modal-right{
+    padding:40px;
+    border-left:8px solid #ff4f87;
+    display:flex;
+    flex-direction:column;
+}
+
+.modal-right h2{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.modal-right h3{
+    margin-bottom:15px;
+}
+
+.modal-right ul{
+    margin-left:20px;
+    line-height:2;
+    flex:1;
+}
+
+.modal-btn{
+    width:280px;
+    height:60px;
+    margin-top:30px;
+    align-self:flex-end;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#ff4f87;
+    color:#fff;
+    text-decoration:none;
+    border-radius:30px;
+    font-weight:700;
+}
+
+.modal-btn:hover{
+    background:#ff2d74;
+}
+
+.close-modal{
+    position:absolute;
+    right:30px;
+    top:20px;
+    font-size:40px;
+    cursor:pointer;
+    z-index:20;
+}
+
+.modal-arrow{
+    position:absolute;
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#ff4f87;
+    color:#fff;
+    cursor:pointer;
+}
+
+.modal-arrow.prev{
+    left:20px;
+}
+
+.modal-arrow.next{
+    right:20px;
+}

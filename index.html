@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Искусство Разума</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo"><img src="img/Frame 23.png"></div>
+
+    <nav>
+    <a href="about.html" class="nav-btn">О НАС</a>
+    <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
+    <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
+    </nav>
+</header>
+
+<section class="hero-slider">
+    
+    
+<button class="slider-btn prev">❮</button>
+<button class="slider-btn next">❯</button>
+    <div class="slides">
+
+        <div class="slide active">
+            <img src="img/1.jfif" alt="">
+            <div class="slide-content">
+                <h2>
+                    Хотите, чтобы ваш ребёнок спокойно справлялся со школой, общением и новыми ситуациями без тревоги и растерянности?
+                </h2>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="img/2.jfif" alt="">
+            <div class="slide-content">
+                <h2>
+                    На занятиях студии «Искусство Разума» через творчество и игровые практики ребёнок учится спокойно справляться со школой, общением и новыми ситуациями без тревоги, зажимов и растерянности
+                </h2>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="img/3.jfif" alt="">
+            <div class="slide-content">
+                <h2>
+                    У нас не кружок творчества. На занятиях через игру, рисование и другие практики ребёнок учится понимать себя, действовать в новых ситуациях и уверенно взаимодействовать с окружающими
+                </h2>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="img/4.jfif" alt="">
+            <div class="slide-content">
+                <h2>В результате занятий ребёнок:</h2>
+                <ul class="slide-list">
+                    <li>Легче адаптируется к школе и коллективу</li>
+                    <li>Лучше понимает неожиданные ситуации</li>
+                    <li>Получает навыки общения и самостоятельности</li>
+                    <li>Осваивает основы финансовой грамотности</li>
+                </ul>
+                
+
+    
+</div>
+            </div>
+        </div>
+
+    </div>
+
+    
+<div class="hero-buttons">
+
+        <a href="tel:+79999999999" class="hero-btn">
+            Узнать, подойдёт ли моему ребёнку
+        </a>
+
+        <a href="courses.html" class="hero-btn">
+            Посмотреть программу занятий
+        </a>
+
+        <a href="tel:+79999999999" class="hero-btn">
+            Записаться на диагностику
+        </a>
+
+    </div>
+</section>
+
+<div class="slider-dots">
+
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+
+</div>
+<section class="teacher-section pink-section">
+
+    <div class="teacher-info">
+
+        <div class="teacher-title">
+            <span class="blue"><h1>Специалист</h1></span>
+            <span class="red">Галина Чернявская</span>
+            <span class="sub">
+                Педагог, психолог, автор развивающих программ студии «Искусство Разума».
+            </span>
+        </div>
+    <br>
+    <br>
+        <div class="teacher-text">
+
+            <p>
+                Более 25 лет помогает детям раскрывать сильные стороны,
+                понимать себя, выстраивать отношения и уверенно действовать
+                в новых ситуациях.
+            </p>
+
+            <p>
+                Использует творчество и игровые практики как инструмент
+                развития мышления, самостоятельности и жизненных навыков.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="teacher-photo">
+        <img src="img/Frame 26.png">
+    </div>
+
+</section>
+
+
+
+<section class="teacher-section orange-section">
+
+    <div class="teacher-photo">
+        <img src="img/Frame 25.png">
+    </div>
+
+    <div class="teacher-info">
+
+        <div class="teacher-title">
+            <span class="blue"><h1>Специалист</h1></span>
+            <span class="red">Оксана Орлова</span>
+            <span class="sub">
+                Педагог, учитель английского языка, автор программ студии «Искусство Разума».
+            </span>
+        </div>
+ <br>
+    <br>
+        <p>
+            Работает с детьми и подростками, создаёт развивающие программы,
+            направленные на формирование эмоционального интеллекта,
+            коммуникативных навыков и уверенности в себе.
+
+            Уверена, что развитие происходит легче там, где ребёнку интересно,
+            безопасно и где его сильные стороны замечают и поддерживают.
+        </p>
+
+    </div>
+
+</section>
+
+   <div class="course-modal" id="courseModal">
+
+    <div class="modal-content">
+
+        <span class="close-modal">&times;</span>
+
+        <div class="modal-left">
+
+           <button class="modal-arrow prev">&#10094;</button>
+
+    <div class="media-slider">
+
+        <img id="modalImage" src="" alt="">
+
+        <video id="modalVideo" controls style="display:none;">
+            <source src="" type="video/mp4">
+        </video>
+
+    </div>
+
+    <button class="modal-arrow next">&#10095;</button>
+        </div>
+
+        <div class="modal-right">
+
+            <h2 id="modalTitle">Название курса</h2>
+
+            <h3>Описание:</h3>
+
+            <ul id="modalList">
+                <li>Пункт 1</li>
+                <li>Пункт 2</li>
+                <li>Пункт 3</li>
+                <li>Пункт 4</li>
+            </ul>
+
+            <a class="modal-btn">
+                НАЧАТЬ
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<section class="bestsellers">
+
+    <h2 class="section-title">С чего начать</h2>
+
+    <div class="best-grid">
+
+        <div class="bestseller">
+
+            <div class="badge">ХИТ</div>
+
+            <div class="course-photo">
+                <img src="img/4.jfif" alt="">
+            </div>
+
+            <h3>Диагностика</h3>
+
+            <p class="course-desc">
+                Онлайн-диагностика развития ребёнка
+            </p>
+
+            <p class="price free">
+                Бесплатно
+            </p>
+
+            <button class="course-btn open-course">
+    НАЧАТЬ
+</button>
+
+        </div>
+
+        <div class="bestseller">
+
+            <div class="badge">ХИТ</div>
+
+            <div class="course-photo">
+                <img src="img/5.jfif" alt="">
+            </div>
+
+            <h3>Пробное занятие</h3>
+
+            <p class="course-desc">
+                Пробное занятие в студии
+            </p>
+
+            <p class="price">
+                500 ₽
+            </p>
+
+            <button class="course-btn open-course">
+    НАЧАТЬ
+</button>
+
+        </div>
+
+        <div class="bestseller">
+
+            <div class="badge">ХИТ</div>
+
+            <div class="course-photo">
+                <img src="img/_rABsYpVmRu7lBsdLFjQY-pMVBDgaRLMOslQrWzYrPpO5vj9Kuezbs4VHHAWCte-2RKXMQDgyOiFQPfJLJDKqhhS.jpg" alt="">
+            </div>
+
+            <h3>Нейросказки</h3>
+
+            <p class="course-desc">
+                Развивающие сказки для детей
+            </p>
+
+            <p class="price">
+                1200 ₽
+            </p>
+
+            <button class="course-btn open-course">
+    НАЧАТЬ
+</button>
+        </div>
+
+    </div>
+
+</section>
+<!-- ///////////////////////////////////////////////////////// -->
+<section class="registration" id="register">
+
+
+    <h2>Записаться на занятие</h2>
+
+    <p class="form-subtitle">
+        Оставьте заявку, и мы свяжемся с вами для подбора подходящей программы
+    </p>
+
+    <form class="register-form">
+
+        <div class="form-row">
+
+            <div class="input-group">
+                <label>Имя родителя</label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Телефон</label>
+                <input type="tel" required>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="input-group">
+                <label>Имя ребёнка</label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Дата рождения ребёнка</label>
+                <input type="date" required>
+            </div>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Интересующее направление</label>
+
+            <select required>
+
+                <option >Выберите направление</option>
+
+                <option value="strateg">Эмоциональный и стратегический интеллект</option>
+
+                <option value="ritor1">Риторика и Деньги. Первая ступень</option>
+
+                <option value="ritor2">Риторика и Деньги. Вторая ступень</option>
+
+                <option value="art">Арт Терапия</option>
+
+                <option value="neuro">НейроСказки</option>
+
+                <option value="trial">Пробное занятие</option>
+
+                <option value="diagnostic">Диагностика ребёнка</option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Дополнительная информация</label>
+
+            <textarea
+                rows="5"
+                placeholder="Расскажите немного о ребёнке..."
+            ></textarea>
+
+        </div>
+
+        <div class="checkbox">
+
+            <input
+                type="checkbox"
+                id="agree"
+                required
+            >
+
+            <label for="agree">
+                Я согласен(а) на обработку персональных данных
+            </label>
+
+        </div>
+
+        <button type="submit" class="submit-btn">
+            Отправить заявку
+        </button>
+
+    </form>
+
+</section>
+<button id="scrollTopBtn">↑</button>
+<footer id="contacts">
+
+    <div class="footer-left">
+
+        <img src="img/logo.png" alt="">
+
+        <p>
+            Студия развития детей
+            «Искусство Разума»
+        </p>
+
+    </div>
+
+    <div class="footer-center">
+
+        <h3>Навигация</h3>
+
+        <a href="index.html">Главная</a>
+        <a href="courses.html">Курсы</a>
+        <a href="about.html">О нас</a>
+
+    </div>
+
+    <div class="footer-right">
+
+        <h3>Контакты</h3>
+
+        <p>Телефон</p>
+
+        <p>Email</p>
+
+        <button class="faq-btn">
+            FAQ
+        </button>
+
+    </div>
+
+</footer>
+
+<!-- ///////////////////////////////////////////////////////// -->
+ <!-- skript form -->
+  <script>
+
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+let current = 0;
+
+function showSlide(index){
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+
+    current = index;
+}
+
+function nextSlide(){
+    let next = current + 1;
+
+    if(next >= slides.length){
+        next = 0;
+    }
+
+    showSlide(next);
+}
+
+function prevSlide(){
+    let prev = current - 1;
+
+    if(prev < 0){
+        prev = slides.length - 1;
+    }
+
+    showSlide(prev);
+}
+
+document.querySelector('.next').addEventListener('click', nextSlide);
+document.querySelector('.prev').addEventListener('click', prevSlide);
+
+setInterval(nextSlide, 15000);
+</script>
+<!-- ///// -->
+ <script>
+
+const scrollTopBtn =
+document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 500){
+
+        scrollTopBtn.classList.add("show");
+
+    }else{
+
+        scrollTopBtn.classList.remove("show");
+    }
+});
+
+scrollTopBtn.addEventListener("click", () => {
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+    });
+});
+const modal = document.getElementById("courseModal");
+
+document.querySelectorAll(".open-course").forEach(button=>{
+
+    button.addEventListener("click",(e)=>{
+
+        e.preventDefault();
+
+        modal.classList.add("active");
+
+    });
+
+});
+
+document.querySelector(".close-modal").addEventListener("click",()=>{
+
+    modal.classList.remove("active");
+
+});
+
+modal.addEventListener("click",(e)=>{
+
+    if(e.target===modal){
+
+        modal.classList.remove("active");
+
+    }
+
+});
+
+
+const courses = {
+
+    neuro:{
+
+        title:"НейроСказки",
+
+        media:[
+            {type:"image",src:"img/neuro1.jpg"},
+            {type:"image",src:"img/neuro2.jpg"},
+            {type:"video",src:"video/neuro.mp4"}
+        ],
+
+        list:[
+            "Развитие речи",
+            "Воображение",
+            "Эмоциональный интеллект",
+            "Домашние задания"
+        ]
+
+    },
+
+    trial:{
+
+        title:"Пробное занятие",
+
+        media:[
+            {type:"image",src:"img/trial1.jpg"},
+            {type:"video",src:"video/trial.mp4"}
+        ]
+
+    }
+
+};
+
+
+
+document.querySelector(".modal-btn").onclick = function(){
+
+    modal.classList.remove("active");
+
+    document.getElementById("register").scrollIntoView({
+
+        behavior:"smooth"
+
+    });
+
+};
+const select = document.querySelector("select");
+
+select.value = currentCourse;
+</script>
+
+</body>
+</html>
