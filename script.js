@@ -1,220 +1,277 @@
 document.addEventListener("DOMContentLoaded", () => {
     /* =========================
-       MOBILE MENU
+       MOBILE SIDE MENU
        ========================= */
-    const menuButton = document.querySelector(".mobile-menu-toggle");
-    const nav = document.querySelector("header nav");
+    const logoButton = document.getElementById("logoMenuButton");
+    const nav = document.getElementById("siteNav");
+    const overlay = document.getElementById("mobileMenuOverlay");
 
-    if (menuButton && nav) {
-        menuButton.addEventListener("click", () => {
-            const open = nav.classList.toggle("mobile-open");
-            menuButton.classList.toggle("active", open);
-            menuButton.setAttribute("aria-expanded", String(open));
+    function setMenu(open) {
+        if (!nav || !overlay) return;
+        nav.classList.toggle("mobile-open", open);
+        overlay.classList.toggle("active", open);
+        if (logoButton) logoButton.setAttribute("aria-expanded", String(open));
+        document.body.classList.toggle("menu-open", open);
+    }
+
+    if (logoButton && nav) {
+        logoButton.addEventListener("click", () => {
+            setMenu(!nav.classList.contains("mobile-open"));
         });
 
         nav.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                nav.classList.remove("mobile-open");
-                menuButton.classList.remove("active");
-                menuButton.setAttribute("aria-expanded", "false");
-            });
+            link.addEventListener("click", () => setMenu(false));
+        });
+
+        overlay?.addEventListener("click", () => setMenu(false));
+
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") setMenu(false);
         });
     }
 
     /* =========================
-       HERO SLIDER
+       HERO SLIDER + SWIPE
        ========================= */
     const slides = [...document.querySelectorAll(".slide")];
     const dots = [...document.querySelectorAll(".dot")];
-    const nextButton = document.querySelector(".hero-slider .next");
-    const prevButton = document.querySelector(".hero-slider .prev");
-    let currentSlide = Math.max(0, slides.findIndex(slide => slide.classList.contains("active")));
-    let sliderTimer = null;
+    const nextBtn = document.querySelector(".hero-slider .slider-btn.next");
+    const prevBtn = document.querySelector(".hero-slider .slider-btn.prev");
+    const hero = document.querySelector(".hero-slider");
+    let current = 0;
+    let sliderTimer;
 
     function showSlide(index) {
         if (!slides.length) return;
-        currentSlide = (index + slides.length) % slides.length;
-        slides.forEach((slide, i) => slide.classList.toggle("active", i === currentSlide));
-        dots.forEach((dot, i) => dot.classList.toggle("active", i === currentSlide));
+        current = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+        dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
     }
 
-    function nextSlide() { showSlide(currentSlide + 1); }
-    function prevSlide() { showSlide(currentSlide - 1); }
-    function restartSliderTimer() {
-        if (sliderTimer) clearInterval(sliderTimer);
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    function restartSlider() {
+        clearInterval(sliderTimer);
         if (slides.length > 1) sliderTimer = setInterval(nextSlide, 15000);
     }
 
-    if (slides.length) {
-        nextButton?.addEventListener("click", () => { nextSlide(); restartSliderTimer(); });
-        prevButton?.addEventListener("click", () => { prevSlide(); restartSliderTimer(); });
-        dots.forEach((dot, i) => dot.addEventListener("click", () => { showSlide(i); restartSliderTimer(); }));
+    nextBtn?.addEventListener("click", () => { nextSlide(); restartSlider(); });
+    prevBtn?.addEventListener("click", () => { prevSlide(); restartSlider(); });
 
-        let touchStartX = 0;
-        let touchStartY = 0;
-        const hero = document.querySelector(".hero-slider");
-        hero?.addEventListener("touchstart", e => {
-            touchStartX = e.changedTouches[0].clientX;
-            touchStartY = e.changedTouches[0].clientY;
-        }, { passive: true });
-        hero?.addEventListener("touchend", e => {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            const dy = e.changedTouches[0].clientY - touchStartY;
-            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-                dx < 0 ? nextSlide() : prevSlide();
-                restartSliderTimer();
-            }
-        }, { passive: true });
+    dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+            showSlide(i);
+            restartSlider();
+        });
+    });
 
-        showSlide(currentSlide);
-        restartSliderTimer();
-    }
+    let touchStartX = 0;
+    hero?.addEventListener("touchstart", e => {
+        touchStartX = e.changedTouches[0].clientX;
+    }, { passive:true });
+
+    hero?.addEventListener("touchend", e => {
+        const delta = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 45) {
+            delta < 0 ? nextSlide() : prevSlide();
+            restartSlider();
+        }
+    }, { passive:true });
+
+    showSlide(0);
+    restartSlider();
 
     /* =========================
-       FILTERS
-       Second click on the same option = reset this filter.
+       SPECIALIST MODAL
        ========================= */
-    const cards = [...document.querySelectorAll(".course-card")];
-    const filterButtons = [...document.querySelectorAll(".filter-btn")];
-    const resetFiltersButton = document.querySelector(".reset-filters");
-    const filterState = { age: "all", direction: "all", format: "all" };
+    const specialistModal = document.getElementById("specialistModal");
+    const specialistImage = document.getElementById("specialistModalImage");
+    const specialistTitle = document.getElementById("specialistModalTitle");
+    const specialistSubtitle = document.getElementById("specialistModalSubtitle");
+    const specialistText = document.getElementById("specialistModalText");
 
-    function updateFilterButtons() {
-        filterButtons.forEach(button => {
-            const type = button.dataset.type;
-            const value = button.dataset.value;
-            button.classList.toggle("active", filterState[type] === value && value !== "all");
-        });
+    const specialists = {
+        galina: {
+            name: "Галина Чернявская",
+            image: "img/Frame 26.png",
+            subtitle: "Педагог, психолог, автор развивающих программ студии «Искусство Разума».",
+            text: `<p>Более 25 лет помогает детям раскрывать сильные стороны, понимать себя, выстраивать отношения и уверенно действовать в новых ситуациях.</p><p>Использует творчество и игровые практики как инструмент развития мышления, самостоятельности и жизненных навыков.</p>`
+        },
+        oksana: {
+            name: "Оксана Орлова",
+            image: "img/Frame 25.png",
+            subtitle: "Педагог, учитель английского языка, автор программ студии «Искусство Разума».",
+            text: `<p>Работает с детьми и подростками, создаёт развивающие программы, направленные на формирование эмоционального интеллекта, коммуникативных навыков и уверенности в себе.</p><p>Уверена, что развитие происходит легче там, где ребёнку интересно, безопасно и где его сильные стороны замечают и поддерживают.</p>`
+        }
+    };
+
+    function openSpecialist(key) {
+        const data = specialists[key];
+        if (!data || !specialistModal) return;
+
+        specialistImage.src = data.image;
+        specialistImage.alt = data.name;
+        specialistTitle.textContent = data.name;
+        specialistSubtitle.textContent = data.subtitle;
+        specialistText.innerHTML = data.text;
+        specialistModal.classList.add("active");
+        specialistModal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
     }
 
-    function filterCourses() {
-        cards.forEach(card => {
-            const visible = Object.entries(filterState).every(([type, value]) => {
-                return value === "all" || card.dataset[type] === value;
-            });
-            card.hidden = !visible;
-        });
+    function closeSpecialist() {
+        specialistModal?.classList.remove("active");
+        specialistModal?.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
     }
 
-    filterButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const type = button.dataset.type;
-            const value = button.dataset.value;
-            filterState[type] = filterState[type] === value ? "all" : value;
-            updateFilterButtons();
-            filterCourses();
+    document.querySelectorAll(".specialist-trigger").forEach(trigger => {
+        trigger.addEventListener("click", () => openSpecialist(trigger.dataset.specialist));
+        trigger.addEventListener("keydown", e => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openSpecialist(trigger.dataset.specialist);
+            }
         });
     });
 
-    resetFiltersButton?.addEventListener("click", () => {
-        filterState.age = "all";
-        filterState.direction = "all";
-        filterState.format = "all";
-        updateFilterButtons();
-        filterCourses();
+    specialistModal?.querySelector(".specialist-modal__close")?.addEventListener("click", closeSpecialist);
+    specialistModal?.querySelector(".specialist-modal__backdrop")?.addEventListener("click", closeSpecialist);
+
+    /* =========================
+       COURSE MODALS
+       ========================= */
+    const courseModal = document.getElementById("courseModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalImage = document.getElementById("modalImage");
+    const modalVideo = document.getElementById("modalVideo");
+    const modalList = document.getElementById("modalList");
+    const modalStart = document.querySelector(".modal-btn");
+
+    const courseData = {
+        diagnostic: {
+            title: "Диагностика ребёнка",
+            images: ["img/4.jfif"],
+            points: ["Первичная оценка сильных сторон ребёнка", "Определение актуальных задач развития", "Рекомендации по дальнейшим занятиям"],
+            direction: "diagnostic"
+        },
+        trial: {
+            title: "Пробное занятие",
+            images: ["img/5.jfif"],
+            points: ["Знакомство со студией", "Игровой формат", "Подбор подходящей программы"],
+            direction: "trial"
+        },
+        neuro: {
+            title: "Нейросказки",
+            images: ["img/_rABsYpVmRu7lBsdLFjQY-pMVBDgaRLMOslQrWzYrPpO5vj9Kuezbs4VHHAWCte-2RKXMQDgyOiFQPfJLJDKqhhS.jpg"],
+            points: ["Развивающие истории", "Творческие задания", "Развитие мышления и эмоционального интеллекта"],
+            direction: "neuro"
+        }
+    };
+
+    let modalCourseKey = null;
+
+    function openCourse(key) {
+        const data = courseData[key];
+        if (!data || !courseModal) return;
+
+        modalCourseKey = key;
+        modalTitle.textContent = data.title;
+        modalImage.src = data.images[0];
+        modalImage.style.display = "block";
+        if (modalVideo) modalVideo.style.display = "none";
+
+        modalList.innerHTML = data.points.map(point => `<li>${point}</li>`).join("");
+        courseModal.classList.add("active");
+        document.body.classList.add("modal-open");
+    }
+
+    function closeCourse() {
+        courseModal?.classList.remove("active");
+        document.body.classList.remove("modal-open");
+    }
+
+    document.querySelectorAll(".open-course").forEach(button => {
+        button.addEventListener("click", () => openCourse(button.dataset.course));
     });
 
-    filterCourses();
+    document.querySelector(".close-modal")?.addEventListener("click", closeCourse);
+
+    courseModal?.addEventListener("click", e => {
+        if (e.target === courseModal) closeCourse();
+    });
+
+    modalStart?.addEventListener("click", e => {
+        e.preventDefault();
+        closeCourse();
+
+        const register = document.getElementById("register");
+        const select = register?.querySelector("select");
+
+        if (select && modalCourseKey) {
+            select.value = courseData[modalCourseKey].direction;
+            select.dispatchEvent(new Event("change", { bubbles:true }));
+        }
+
+        register?.scrollIntoView({ behavior:"smooth", block:"start" });
+    });
 
     /* =========================
        SCROLL TOP
        ========================= */
-    const scrollTopButton = document.getElementById("scrollTopBtn");
-    if (scrollTopButton) {
-        const toggleScrollTop = () => scrollTopButton.classList.toggle("show", window.scrollY > 500);
-        window.addEventListener("scroll", toggleScrollTop, { passive: true });
-        toggleScrollTop();
-        scrollTopButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-    }
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+        scrollTopBtn?.classList.toggle("show", window.scrollY > 500);
+    }, { passive:true });
+
+    scrollTopBtn?.addEventListener("click", () => {
+        window.scrollTo({ top:0, behavior:"smooth" });
+    });
 
     /* =========================
-       COURSE MODAL
+       FILTERS — repeated click resets
        ========================= */
-    const modal = document.getElementById("courseModal");
-    if (modal) {
-        const modalTitle = document.getElementById("modalTitle");
-        const modalList = document.getElementById("modalList");
-        const modalImage = document.getElementById("modalImage");
-        const modalVideo = document.getElementById("modalVideo");
-        const modalButton = modal.querySelector(".modal-btn");
-        const media = {
-            diagnostic: [
-                { type: "image", src: "img/4.jfif" },
-                { type: "image", src: "img/mppcFq3DGt9bjiSggGPrAIfJs1wMKVLcjJnD3ilXtty2ujEzFQMJ6T56Ti9t0TuLL0e433uZ_P8csJc0zgiIcyul.jpg" }
-            ],
-            trial: [
-                { type: "image", src: "img/5.jfif" }
-            ],
-            neuro: [
-                { type: "image", src: "img/_rABsYpVmRu7lBsdLFjQY-pMVBDgaRLMOslQrWzYrPpO5vj9Kuezbs4VHHAWCte-2RKXMQDgyOiFQPfJLJDKqhhS.jpg" }
-            ]
-        };
-        const courseInfo = {
-            diagnostic: { title: "Диагностика", value: "diagnostic", list: ["Понимание сильных сторон ребёнка", "Определение зон развития", "Рекомендации для родителей", "Подбор подходящей программы"] },
-            trial: { title: "Пробное занятие", value: "trial", list: ["Знакомство с форматом занятий", "Игровая практика", "Наблюдение за ребёнком", "Рекомендации специалиста"] },
-            neuro: { title: "НейроСказки", value: "neuro", list: ["Развитие речи", "Воображение", "Эмоциональный интеллект", "Творческие практики"] }
-        };
-        let activeCourse = null;
-        let activeMediaIndex = 0;
+    const cards = [...document.querySelectorAll(".course-card")];
 
-        function renderMedia() {
-            const items = media[activeCourse] || [];
-            const item = items[activeMediaIndex] || items[0];
-            if (!item) return;
-            if (item.type === "video") {
-                modalImage.style.display = "none";
-                modalVideo.style.display = "block";
-                modalVideo.src = item.src;
-            } else {
-                modalVideo.pause();
-                modalVideo.removeAttribute("src");
-                modalVideo.style.display = "none";
-                modalImage.style.display = "block";
-                modalImage.src = item.src;
-            }
-        }
+    if (cards.length) {
+        const state = { age:"all", direction:"all", format:"all" };
 
-        function openModal(courseId) {
-            const info = courseInfo[courseId];
-            if (!info) return;
-            activeCourse = courseId;
-            activeMediaIndex = 0;
-            modalTitle.textContent = info.title;
-            modalList.innerHTML = info.list.map(item => `<li>${item}</li>`).join("");
-            renderMedia();
-            modal.classList.add("active");
-            document.body.style.overflow = "hidden";
-        }
-        function closeModal() {
-            modal.classList.remove("active");
-            document.body.style.overflow = "";
-            modalVideo?.pause();
-        }
+        document.querySelectorAll(".filter-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const type = button.dataset.type;
+                const value = button.dataset.value;
 
-        document.querySelectorAll(".open-course").forEach(button => {
-            button.addEventListener("click", () => openModal(button.dataset.course));
-        });
-        modal.querySelector(".close-modal")?.addEventListener("click", closeModal);
-        modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-        document.addEventListener("keydown", e => { if (e.key === "Escape" && modal.classList.contains("active")) closeModal(); });
-        modal.querySelector(".modal-arrow.prev")?.addEventListener("click", () => {
-            const items = media[activeCourse] || [];
-            if (!items.length) return;
-            activeMediaIndex = (activeMediaIndex - 1 + items.length) % items.length;
-            renderMedia();
-        });
-        modal.querySelector(".modal-arrow.next")?.addEventListener("click", () => {
-            const items = media[activeCourse] || [];
-            if (!items.length) return;
-            activeMediaIndex = (activeMediaIndex + 1) % items.length;
-            renderMedia();
-        });
-        modalButton?.addEventListener("click", e => {
-            e.preventDefault();
-            const select = document.querySelector("#register select");
-            if (select && activeCourse) select.value = courseInfo[activeCourse].value;
-            closeModal();
-            document.getElementById("register")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                if (state[type] === value) {
+                    state[type] = "all";
+                    document.querySelectorAll(`[data-type="${type}"]`).forEach(btn => btn.classList.remove("active"));
+                    document.querySelector(`[data-type="${type}"][data-value="all"]`)?.classList.add("active");
+                } else {
+                    state[type] = value;
+                    document.querySelectorAll(`[data-type="${type}"]`).forEach(btn => btn.classList.remove("active"));
+                    button.classList.add("active");
+                }
+
+                cards.forEach(card => {
+                    const visible =
+                        (state.age === "all" || card.dataset.age === state.age) &&
+                        (state.direction === "all" || card.dataset.direction === state.direction) &&
+                        (state.format === "all" || card.dataset.format === state.format);
+
+                    card.style.display = visible ? "" : "none";
+                });
+            });
         });
     }
+
+    /* ESC closes everything */
+    document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+            closeCourse();
+            closeSpecialist();
+            setMenu(false);
+        }
+    });
 });
