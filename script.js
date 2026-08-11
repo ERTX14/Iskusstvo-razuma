@@ -272,6 +272,123 @@ document.addEventListener("DOMContentLoaded", () => {
             closeCourse();
             closeSpecialist();
             setMenu(false);
+
+
+
+            /* =========================================================
+   МОБИЛЬНОЕ МЕНЮ
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const logoMenuButton =
+        document.getElementById("logoMenuButton");
+
+    const mobileMenu =
+        document.getElementById("siteNav");
+
+    const mobileMenuOverlay =
+        document.getElementById("mobileMenuOverlay");
+
+    const mobileMenuClose =
+        document.getElementById("mobileMenuClose");
+
+    const mobileNavLinks =
+        document.querySelectorAll(".mobile-nav-link");
+
+
+    if (
+        !logoMenuButton ||
+        !mobileMenu ||
+        !mobileMenuOverlay ||
+        !mobileMenuClose
+    ) {
+        return;
+    }
+
+
+    function openMobileMenu() {
+
+        mobileMenu.classList.add("open");
+
+        mobileMenuOverlay.classList.add("open");
+
+        document.body.classList.add("mobile-menu-open");
+
+        logoMenuButton.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+    }
+
+
+    function closeMobileMenu() {
+
+        mobileMenu.classList.remove("open");
+
+        mobileMenuOverlay.classList.remove("open");
+
+        document.body.classList.remove("mobile-menu-open");
+
+        logoMenuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+    }
+
+
+    /* Нажатие на логотип */
+
+    logoMenuButton.addEventListener(
+        "click",
+        openMobileMenu
+    );
+
+
+    /* Крестик */
+
+    mobileMenuClose.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+
+    /* Нажатие по затемнению */
+
+    mobileMenuOverlay.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+
+    /* После перехода по ссылке закрываем меню */
+
+    mobileNavLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            closeMobileMenu
+        );
+
+    });
+
+
+    /* Escape */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+                closeMobileMenu();
+            }
+
+        }
+    );
+
+});
         }
     });
 });
