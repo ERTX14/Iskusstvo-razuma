@@ -10,53 +10,22 @@
 
 <body>
 
-<header class="site-header">
+<header>
+    <div class="logo"><img src="img/Frame 23.png"></div>
 
-    <button
-        class="logo"
-        id="logoMenuButton"
-        type="button"
-        aria-label="Открыть меню"
-        aria-expanded="false"
-    >
-        <img src="img/Frame 23.png" alt="Искусство Разума">
-    </button>
-
-</header>
-
-<!-- Затемнение страницы при открытом меню -->
-<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-
-<!-- Боковое меню -->
-<aside class="mobile-side-menu" id="siteNav">
-
-    <button
-        class="mobile-side-menu__close"
-        id="mobileMenuClose"
-        type="button"
-        aria-label="Закрыть меню"
-    >
-        ×
-    </button>
-
-    <nav class="mobile-side-menu__nav">
-
-        <a href="index.html" class="mobile-nav-link">
-            ГЛАВНАЯ
-        </a>
-
-        <a href="courses.html" class="mobile-nav-link">
-            ЗАНЯТИЯ
-        </a>
-
-        <a href="about.html" class="mobile-nav-link">
-            О НАС
-        </a>
-
+    <nav>
+    <a href="about.html" class="nav-btn">О НАС</a>
+    <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
+    <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
     </nav>
-
-</aside>
-<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <button class="mobile-menu-toggle" type="button"
+            aria-label="Открыть меню"
+            aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
 
 <section class="hero-slider">
     
@@ -167,8 +136,8 @@
 
     </div>
 
-    <div class="teacher-photo specialist-trigger" data-specialist="galina" role="button" tabindex="0" aria-label="Открыть информацию о Галине Чернявской">
-        <img src="img/Frame 26.png" alt="Галина Чернявская">
+    <div class="teacher-photo">
+        <img src="img/Frame 26.png">
     </div>
 
 </section>
@@ -177,8 +146,8 @@
 
 <section class="teacher-section orange-section">
 
-    <div class="teacher-photo specialist-trigger" data-specialist="oksana" role="button" tabindex="0" aria-label="Открыть информацию об Оксане Орловой">
-        <img src="img/Frame 25.png" alt="Оксана Орлова">
+    <div class="teacher-photo">
+        <img src="img/Frame 25.png">
     </div>
 
     <div class="teacher-info">
@@ -205,23 +174,7 @@
 
 </section>
 
-   <div class="specialist-modal" id="specialistModal" aria-hidden="true">
-    <div class="specialist-modal__backdrop"></div>
-    <div class="specialist-modal__content" role="dialog" aria-modal="true" aria-labelledby="specialistModalTitle">
-        <button class="specialist-modal__close" type="button" aria-label="Закрыть">&times;</button>
-        <div class="specialist-modal__image">
-            <img id="specialistModalImage" src="" alt="">
-        </div>
-        <div class="specialist-modal__info">
-            <span class="specialist-modal__label">СПЕЦИАЛИСТ</span>
-            <h2 id="specialistModalTitle"></h2>
-            <p id="specialistModalSubtitle"></p>
-            <div id="specialistModalText"></div>
-        </div>
-    </div>
-</div>
-
-<div class="course-modal" id="courseModal">
+   <div class="course-modal" id="courseModal">
 
     <div class="modal-content">
 
@@ -295,7 +248,7 @@
                 Бесплатно
             </p>
 
-            <button class="course-btn open-course" data-course="diagnostic">
+            <button class="course-btn open-course">
     НАЧАТЬ
 </button>
 
@@ -319,7 +272,7 @@
                 500 ₽
             </p>
 
-            <button class="course-btn open-course" data-course="trial">
+            <button class="course-btn open-course">
     НАЧАТЬ
 </button>
 
@@ -343,7 +296,7 @@
                 1200 ₽
             </p>
 
-            <button class="course-btn open-course" data-course="neuro">
+            <button class="course-btn open-course">
     НАЧАТЬ
 </button>
         </div>
@@ -363,26 +316,30 @@
 
     <form class="register-form">
 
-        <div class="form-row registration-main-fields">
+        <div class="form-row">
 
             <div class="input-group">
                 <label>Имя родителя</label>
-                <input type="text" name="parent_name" autocomplete="name" required>
-            </div>
-
-            <div class="input-group">
-                <label>Имя ребёнка</label>
-                <input type="text" name="child_name" required>
+                <input type="text" required>
             </div>
 
             <div class="input-group">
                 <label>Телефон</label>
-                <input type="tel" name="phone" autocomplete="tel" required>
+                <input type="tel" required>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="input-group">
+                <label>Имя ребёнка</label>
+                <input type="text" required>
             </div>
 
             <div class="input-group">
                 <label>Дата рождения ребёнка</label>
-                <input type="date" name="birth_date" required>
+                <input type="date" required>
             </div>
 
         </div>
@@ -485,9 +442,9 @@
 
 </footer>
 
-
-
-<script src="js/script.js"></script>
-<script src="js/script.js"></script>
+<!-- ///////////////////////////////////////////////////////// -->
+ <!-- skript form -->
+<!-- ///// -->
+<script src="js/script.js" defer></script>
 </body>
 </html>
