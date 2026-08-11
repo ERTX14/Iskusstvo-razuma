@@ -23,6 +23,13 @@
     <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
     <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
     </nav>
+    <button class="mobile-menu-toggle" type="button"
+            aria-label="Открыть меню"
+            aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </header>
 
 <main class="courses-page">
@@ -219,128 +226,7 @@
     </div>
 
 </footer>
-<script>
-
-let currentAge = "";
-let currentDirection = "";
-let currentFormat = "";
-
-const cards = document.querySelectorAll(".course-card");
-
-document.querySelectorAll(".filter-btn").forEach(button=>{
-
-    button.addEventListener("click",()=>{
-
-        const type = button.dataset.type;
-        const value = button.dataset.value;
-
-        const isActive = button.classList.contains("active");
-
-        document
-            .querySelectorAll(`[data-type="${type}"]`)
-            .forEach(btn=>btn.classList.remove("active"));
-
-        if(isActive){
-
-            if(type==="age") currentAge="";
-
-            if(type==="direction") currentDirection="";
-
-            if(type==="format") currentFormat="";
-
-        }else{
-
-            button.classList.add("active");
-
-            if(type==="age") currentAge=value;
-
-            if(type==="direction") currentDirection=value;
-
-            if(type==="format") currentFormat=value;
-
-        }
-
-        filterCourses();
-
-    });
-
-});
-
-function filterCourses(){
-
-    document.querySelector(".reset-filters").addEventListener("click",()=>{
-
-    currentAge="";
-    currentDirection="";
-    currentFormat="";
-
-    document.querySelectorAll(".filter-btn").forEach(btn=>{
-
-        btn.classList.remove("active");
-
-    });
-
-    filterCourses();
-
-});
-    cards.forEach(card => {
-
-        const ageMatch =
-    currentAge === "" ||
-    card.dataset.age === currentAge;
-
-        const directionMatch =
-    currentDirection === "" ||
-    card.dataset.direction === currentDirection;
-
-        const formatMatch =
-    currentFormat === "" ||
-    card.dataset.format === currentFormat;
-
-        if(ageMatch && directionMatch && formatMatch){
-
-    card.style.display = "";
-
-}else{
-
-    card.style.display = "none";
-
-}
-
-    });
-
-}
-
-</script>
 <!-- //////////// -->
- <script>
-
-const scrollTopBtn =
-document.getElementById("scrollTopBtn");
-
-window.addEventListener("scroll", () => {
-
-    if(window.scrollY > 500){
-
-        scrollTopBtn.classList.add("show");
-
-    }else{
-
-        scrollTopBtn.classList.remove("show");
-    }
-});
-
-scrollTopBtn.addEventListener("click", () => {
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-    });
-});
-
-</script>
-
+<script src="js/script.js" defer></script>
 </body>
 </html>
