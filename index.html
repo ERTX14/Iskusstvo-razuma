@@ -10,21 +10,52 @@
 
 <body>
 
-<header>
-    <button class="logo" id="logoMenuButton" type="button" aria-label="Открыть меню" aria-expanded="false">
+<header class="site-header">
+
+    <button
+        class="logo"
+        id="logoMenuButton"
+        type="button"
+        aria-label="Открыть меню"
+        aria-expanded="false"
+    >
         <img src="img/Frame 23.png" alt="Искусство Разума">
     </button>
 
-    <nav id="siteNav" aria-label="Основная навигация">
-        <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
-        <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
-        <a href="about.html" class="nav-btn">О НАС</a>
-    </nav>
-    <button class="mobile-menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false">
-        <span></span>
-    </button>
 </header>
 
+<!-- Затемнение страницы при открытом меню -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+<!-- Боковое меню -->
+<aside class="mobile-side-menu" id="siteNav">
+
+    <button
+        class="mobile-side-menu__close"
+        id="mobileMenuClose"
+        type="button"
+        aria-label="Закрыть меню"
+    >
+        ×
+    </button>
+
+    <nav class="mobile-side-menu__nav">
+
+        <a href="index.html" class="mobile-nav-link">
+            ГЛАВНАЯ
+        </a>
+
+        <a href="courses.html" class="mobile-nav-link">
+            ЗАНЯТИЯ
+        </a>
+
+        <a href="about.html" class="mobile-nav-link">
+            О НАС
+        </a>
+
+    </nav>
+
+</aside>
 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
 
 <section class="hero-slider">
