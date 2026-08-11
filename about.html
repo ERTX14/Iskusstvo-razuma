@@ -18,11 +18,8 @@
     <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
     <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
     </nav>
-    <button class="mobile-menu-toggle" type="button"
-            aria-label="Открыть меню"
-            aria-expanded="false">
-        <span></span>
-        <span></span>
+
+    <button class="mobile-menu-toggle" aria-label="Открыть меню" aria-expanded="false">
         <span></span>
     </button>
 </header>
@@ -223,6 +220,35 @@
 
 </footer>
 <!-- ///////// -->
-<script src="js/script.js" defer></script>
+ <script>
+
+const scrollTopBtn =
+document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 500){
+
+        scrollTopBtn.classList.add("show");
+
+    }else{
+
+        scrollTopBtn.classList.remove("show");
+    }
+});
+
+scrollTopBtn.addEventListener("click", () => {
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+    });
+});
+
+</script>
+
+<script src="js/script.js"></script>
 </body>
 </html>

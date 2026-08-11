@@ -4,16 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Курсы</title>
-<link rel="stylesheet" href="css/style.css"><style>
-
-    body{background:linear-gradient(
-        180deg,
-        #e45a1f,
-        #ff8c5a
-    );}
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="courses-body">
 
 <header>
     <div class="logo"><img src="img/Frame 23.png"></div>
@@ -23,11 +16,8 @@
     <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
     <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
     </nav>
-    <button class="mobile-menu-toggle" type="button"
-            aria-label="Открыть меню"
-            aria-expanded="false">
-        <span></span>
-        <span></span>
+
+    <button class="mobile-menu-toggle" aria-label="Открыть меню" aria-expanded="false">
         <span></span>
     </button>
 </header>
@@ -112,7 +102,7 @@
             <div class="badge">ХИТ</div>
             <div class="course-photo"><img src="img/mppcFq3DGt9bjiSggGPrAIfJs1wMKVLcjJnD3ilXtty2ujEzFQMJ6T56Ti9t0TuLL0e433uZ_P8csJc0zgiIcyul.jpg" alt=""></div>
             <h3>Диагностика ребёнка</h3>
-            <p>Бесплатно</p>
+            <p class="free">Бесплатно</p>
             <a href="index.html#register" class="course-btn">НАЧАТЬ</a>
         </div>
 
@@ -227,6 +217,35 @@
 
 </footer>
 <!-- //////////// -->
-<script src="js/script.js" defer></script>
+ <script>
+
+const scrollTopBtn =
+document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 500){
+
+        scrollTopBtn.classList.add("show");
+
+    }else{
+
+        scrollTopBtn.classList.remove("show");
+    }
+});
+
+scrollTopBtn.addEventListener("click", () => {
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+    });
+});
+
+</script>
+
+<script src="js/script.js"></script>
 </body>
 </html>

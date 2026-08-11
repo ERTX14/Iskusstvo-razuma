@@ -18,11 +18,8 @@
     <a href="courses.html" class="nav-btn">ЗАНЯТИЯ</a>
     <a href="index.html" class="nav-btn">ГЛАВНАЯ</a>
     </nav>
-    <button class="mobile-menu-toggle" type="button"
-            aria-label="Открыть меню"
-            aria-expanded="false">
-        <span></span>
-        <span></span>
+
+    <button class="mobile-menu-toggle" aria-label="Открыть меню" aria-expanded="false">
         <span></span>
     </button>
 </header>
@@ -248,7 +245,7 @@
                 Бесплатно
             </p>
 
-            <button class="course-btn open-course">
+            <button class="course-btn open-course" data-course="diagnostic">
     НАЧАТЬ
 </button>
 
@@ -272,7 +269,7 @@
                 500 ₽
             </p>
 
-            <button class="course-btn open-course">
+            <button class="course-btn open-course" data-course="trial">
     НАЧАТЬ
 </button>
 
@@ -296,7 +293,7 @@
                 1200 ₽
             </p>
 
-            <button class="course-btn open-course">
+            <button class="course-btn open-course" data-course="neuro">
     НАЧАТЬ
 </button>
         </div>
@@ -444,7 +441,158 @@
 
 <!-- ///////////////////////////////////////////////////////// -->
  <!-- skript form -->
+  <script>
+
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+let current = 0;
+
+function showSlide(index){
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+
+    current = index;
+}
+
+function nextSlide(){
+    let next = current + 1;
+
+    if(next >= slides.length){
+        next = 0;
+    }
+
+    showSlide(next);
+}
+
+function prevSlide(){
+    let prev = current - 1;
+
+    if(prev < 0){
+        prev = slides.length - 1;
+    }
+
+    showSlide(prev);
+}
+
+document.querySelector('.next').addEventListener('click', nextSlide);
+document.querySelector('.prev').addEventListener('click', prevSlide);
+
+setInterval(nextSlide, 15000);
+</script>
 <!-- ///// -->
-<script src="js/script.js" defer></script>
+ <script>
+
+const scrollTopBtn =
+document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 500){
+
+        scrollTopBtn.classList.add("show");
+
+    }else{
+
+        scrollTopBtn.classList.remove("show");
+    }
+});
+
+scrollTopBtn.addEventListener("click", () => {
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+    });
+});
+const modal = document.getElementById("courseModal");
+
+document.querySelectorAll(".open-course").forEach(button=>{
+
+    button.addEventListener("click",(e)=>{
+
+        e.preventDefault();
+
+        modal.classList.add("active");
+
+    });
+
+});
+
+document.querySelector(".close-modal").addEventListener("click",()=>{
+
+    modal.classList.remove("active");
+
+});
+
+modal.addEventListener("click",(e)=>{
+
+    if(e.target===modal){
+
+        modal.classList.remove("active");
+
+    }
+
+});
+
+
+const courses = {
+
+    neuro:{
+
+        title:"НейроСказки",
+
+        media:[
+            {type:"image",src:"img/neuro1.jpg"},
+            {type:"image",src:"img/neuro2.jpg"},
+            {type:"video",src:"video/neuro.mp4"}
+        ],
+
+        list:[
+            "Развитие речи",
+            "Воображение",
+            "Эмоциональный интеллект",
+            "Домашние задания"
+        ]
+
+    },
+
+    trial:{
+
+        title:"Пробное занятие",
+
+        media:[
+            {type:"image",src:"img/trial1.jpg"},
+            {type:"video",src:"video/trial.mp4"}
+        ]
+
+    }
+
+};
+
+
+
+document.querySelector(".modal-btn").onclick = function(){
+
+    modal.classList.remove("active");
+
+    document.getElementById("register").scrollIntoView({
+
+        behavior:"smooth"
+
+    });
+
+};
+const select = document.querySelector("select");
+
+select.value = currentCourse;
+</script>
+
+<script src="js/script.js"></script>
 </body>
 </html>

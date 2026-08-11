@@ -1,291 +1,220 @@
-/* =========================================================
-   ИСКУССТВО РАЗУМА — ОБЩИЙ JAVASCRIPT
-   ========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
-
     /* =========================
        MOBILE MENU
        ========================= */
-
-    const menuToggle = document.querySelector(".mobile-menu-toggle");
+    const menuButton = document.querySelector(".mobile-menu-toggle");
     const nav = document.querySelector("header nav");
 
-    if (menuToggle && nav) {
-
-        menuToggle.addEventListener("click", () => {
-            const isOpen = menuToggle.classList.toggle("active");
-            nav.classList.toggle("mobile-open", isOpen);
-
-            menuToggle.setAttribute("aria-expanded", String(isOpen));
-            menuToggle.setAttribute(
-                "aria-label",
-                isOpen ? "Закрыть меню" : "Открыть меню"
-            );
+    if (menuButton && nav) {
+        menuButton.addEventListener("click", () => {
+            const open = nav.classList.toggle("mobile-open");
+            menuButton.classList.toggle("active", open);
+            menuButton.setAttribute("aria-expanded", String(open));
         });
 
         nav.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
-                menuToggle.classList.remove("active");
                 nav.classList.remove("mobile-open");
-                menuToggle.setAttribute("aria-expanded", "false");
-                menuToggle.setAttribute("aria-label", "Открыть меню");
-            });
-        });
-
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 768) {
-                menuToggle.classList.remove("active");
-                nav.classList.remove("mobile-open");
-                menuToggle.setAttribute("aria-expanded", "false");
-            }
-        });
-    }
-
-
-    /* =========================
-       SCROLL TO TOP
-       ========================= */
-
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-
-    if (scrollTopBtn) {
-
-        window.addEventListener("scroll", () => {
-            scrollTopBtn.classList.toggle("show", window.scrollY > 500);
-        }, { passive: true });
-
-        scrollTopBtn.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
+                menuButton.classList.remove("active");
+                menuButton.setAttribute("aria-expanded", "false");
             });
         });
     }
-
 
     /* =========================
        HERO SLIDER
        ========================= */
+    const slides = [...document.querySelectorAll(".slide")];
+    const dots = [...document.querySelectorAll(".dot")];
+    const nextButton = document.querySelector(".hero-slider .next");
+    const prevButton = document.querySelector(".hero-slider .prev");
+    let currentSlide = Math.max(0, slides.findIndex(slide => slide.classList.contains("active")));
+    let sliderTimer = null;
 
-    const slides = document.querySelectorAll(".hero-slider .slide");
-    const dots = document.querySelectorAll(".hero-slider .dot");
-    const nextButton = document.querySelector(".hero-slider .slider-btn.next");
-    const prevButton = document.querySelector(".hero-slider .slider-btn.prev");
+    function showSlide(index) {
+        if (!slides.length) return;
+        currentSlide = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => slide.classList.toggle("active", i === currentSlide));
+        dots.forEach((dot, i) => dot.classList.toggle("active", i === currentSlide));
+    }
+
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+    function restartSliderTimer() {
+        if (sliderTimer) clearInterval(sliderTimer);
+        if (slides.length > 1) sliderTimer = setInterval(nextSlide, 15000);
+    }
 
     if (slides.length) {
+        nextButton?.addEventListener("click", () => { nextSlide(); restartSliderTimer(); });
+        prevButton?.addEventListener("click", () => { prevSlide(); restartSliderTimer(); });
+        dots.forEach((dot, i) => dot.addEventListener("click", () => { showSlide(i); restartSliderTimer(); }));
 
-        let current = 0;
-        let timer;
-
-        const showSlide = (index) => {
-
-            current = (index + slides.length) % slides.length;
-
-            slides.forEach((slide, i) => {
-                slide.classList.toggle("active", i === current);
-            });
-
-            dots.forEach((dot, i) => {
-                dot.classList.toggle("active", i === current);
-            });
-        };
-
-        const nextSlide = () => showSlide(current + 1);
-        const prevSlide = () => showSlide(current - 1);
-
-        const restartTimer = () => {
-            clearInterval(timer);
-            timer = setInterval(nextSlide, 15000);
-        };
-
-        nextButton?.addEventListener("click", () => {
-            nextSlide();
-            restartTimer();
-        });
-
-        prevButton?.addEventListener("click", () => {
-            prevSlide();
-            restartTimer();
-        });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener("click", () => {
-                showSlide(index);
-                restartTimer();
-            });
-        });
-
-        /* Touch swipe */
-        const slider = document.querySelector(".hero-slider");
         let touchStartX = 0;
         let touchStartY = 0;
-
-        slider?.addEventListener("touchstart", (event) => {
-            const touch = event.changedTouches[0];
-            touchStartX = touch.clientX;
-            touchStartY = touch.clientY;
+        const hero = document.querySelector(".hero-slider");
+        hero?.addEventListener("touchstart", e => {
+            touchStartX = e.changedTouches[0].clientX;
+            touchStartY = e.changedTouches[0].clientY;
         }, { passive: true });
-
-        slider?.addEventListener("touchend", (event) => {
-            const touch = event.changedTouches[0];
-            const deltaX = touch.clientX - touchStartX;
-            const deltaY = touch.clientY - touchStartY;
-
-            if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (deltaX < 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-                restartTimer();
+        hero?.addEventListener("touchend", e => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+                dx < 0 ? nextSlide() : prevSlide();
+                restartSliderTimer();
             }
         }, { passive: true });
 
-        showSlide(0);
-        restartTimer();
+        showSlide(currentSlide);
+        restartSliderTimer();
     }
-
 
     /* =========================
-       COURSES FILTERS
+       FILTERS
+       Second click on the same option = reset this filter.
        ========================= */
+    const cards = [...document.querySelectorAll(".course-card")];
+    const filterButtons = [...document.querySelectorAll(".filter-btn")];
+    const resetFiltersButton = document.querySelector(".reset-filters");
+    const filterState = { age: "all", direction: "all", format: "all" };
 
-    const cards = document.querySelectorAll(".course-card");
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const resetFilters = document.querySelector(".reset-filters");
-
-    if (cards.length && filterButtons.length) {
-
-        let currentAge = "";
-        let currentDirection = "";
-        let currentFormat = "";
-
-        const filterCourses = () => {
-
-            cards.forEach(card => {
-
-                const ageMatch =
-                    currentAge === "" ||
-                    card.dataset.age === currentAge;
-
-                const directionMatch =
-                    currentDirection === "" ||
-                    card.dataset.direction === currentDirection;
-
-                const formatMatch =
-                    currentFormat === "" ||
-                    card.dataset.format === currentFormat;
-
-                const visible = ageMatch && directionMatch && formatMatch;
-
-                card.classList.toggle("is-hidden", !visible);
-            });
-        };
-
+    function updateFilterButtons() {
         filterButtons.forEach(button => {
-
-            button.addEventListener("click", () => {
-
-                const type = button.dataset.type;
-                const value = button.dataset.value;
-                const wasActive = button.classList.contains("active");
-
-                document
-                    .querySelectorAll(`[data-type="${type}"]`)
-                    .forEach(btn => btn.classList.remove("active"));
-
-                if (wasActive) {
-
-                    if (type === "age") currentAge = "";
-                    if (type === "direction") currentDirection = "";
-                    if (type === "format") currentFormat = "";
-
-                } else {
-
-                    button.classList.add("active");
-
-                    if (type === "age") currentAge = value;
-                    if (type === "direction") currentDirection = value;
-                    if (type === "format") currentFormat = value;
-                }
-
-                filterCourses();
-            });
+            const type = button.dataset.type;
+            const value = button.dataset.value;
+            button.classList.toggle("active", filterState[type] === value && value !== "all");
         });
-
-        resetFilters?.addEventListener("click", () => {
-
-            currentAge = "";
-            currentDirection = "";
-            currentFormat = "";
-
-            filterButtons.forEach(button => {
-                button.classList.remove("active");
-            });
-
-            filterCourses();
-        });
-
-        filterCourses();
     }
 
+    function filterCourses() {
+        cards.forEach(card => {
+            const visible = Object.entries(filterState).every(([type, value]) => {
+                return value === "all" || card.dataset[type] === value;
+            });
+            card.hidden = !visible;
+        });
+    }
+
+    filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const type = button.dataset.type;
+            const value = button.dataset.value;
+            filterState[type] = filterState[type] === value ? "all" : value;
+            updateFilterButtons();
+            filterCourses();
+        });
+    });
+
+    resetFiltersButton?.addEventListener("click", () => {
+        filterState.age = "all";
+        filterState.direction = "all";
+        filterState.format = "all";
+        updateFilterButtons();
+        filterCourses();
+    });
+
+    filterCourses();
+
+    /* =========================
+       SCROLL TOP
+       ========================= */
+    const scrollTopButton = document.getElementById("scrollTopBtn");
+    if (scrollTopButton) {
+        const toggleScrollTop = () => scrollTopButton.classList.toggle("show", window.scrollY > 500);
+        window.addEventListener("scroll", toggleScrollTop, { passive: true });
+        toggleScrollTop();
+        scrollTopButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    }
 
     /* =========================
        COURSE MODAL
        ========================= */
-
     const modal = document.getElementById("courseModal");
-
     if (modal) {
-
-        const closeModal = modal.querySelector(".close-modal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalList = document.getElementById("modalList");
+        const modalImage = document.getElementById("modalImage");
+        const modalVideo = document.getElementById("modalVideo");
         const modalButton = modal.querySelector(".modal-btn");
+        const media = {
+            diagnostic: [
+                { type: "image", src: "img/4.jfif" },
+                { type: "image", src: "img/mppcFq3DGt9bjiSggGPrAIfJs1wMKVLcjJnD3ilXtty2ujEzFQMJ6T56Ti9t0TuLL0e433uZ_P8csJc0zgiIcyul.jpg" }
+            ],
+            trial: [
+                { type: "image", src: "img/5.jfif" }
+            ],
+            neuro: [
+                { type: "image", src: "img/_rABsYpVmRu7lBsdLFjQY-pMVBDgaRLMOslQrWzYrPpO5vj9Kuezbs4VHHAWCte-2RKXMQDgyOiFQPfJLJDKqhhS.jpg" }
+            ]
+        };
+        const courseInfo = {
+            diagnostic: { title: "Диагностика", value: "diagnostic", list: ["Понимание сильных сторон ребёнка", "Определение зон развития", "Рекомендации для родителей", "Подбор подходящей программы"] },
+            trial: { title: "Пробное занятие", value: "trial", list: ["Знакомство с форматом занятий", "Игровая практика", "Наблюдение за ребёнком", "Рекомендации специалиста"] },
+            neuro: { title: "НейроСказки", value: "neuro", list: ["Развитие речи", "Воображение", "Эмоциональный интеллект", "Творческие практики"] }
+        };
+        let activeCourse = null;
+        let activeMediaIndex = 0;
+
+        function renderMedia() {
+            const items = media[activeCourse] || [];
+            const item = items[activeMediaIndex] || items[0];
+            if (!item) return;
+            if (item.type === "video") {
+                modalImage.style.display = "none";
+                modalVideo.style.display = "block";
+                modalVideo.src = item.src;
+            } else {
+                modalVideo.pause();
+                modalVideo.removeAttribute("src");
+                modalVideo.style.display = "none";
+                modalImage.style.display = "block";
+                modalImage.src = item.src;
+            }
+        }
+
+        function openModal(courseId) {
+            const info = courseInfo[courseId];
+            if (!info) return;
+            activeCourse = courseId;
+            activeMediaIndex = 0;
+            modalTitle.textContent = info.title;
+            modalList.innerHTML = info.list.map(item => `<li>${item}</li>`).join("");
+            renderMedia();
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+        function closeModal() {
+            modal.classList.remove("active");
+            document.body.style.overflow = "";
+            modalVideo?.pause();
+        }
 
         document.querySelectorAll(".open-course").forEach(button => {
-
-            button.addEventListener("click", (event) => {
-                event.preventDefault();
-                modal.classList.add("active");
-                document.body.classList.add("modal-open");
-            });
+            button.addEventListener("click", () => openModal(button.dataset.course));
         });
-
-        const closeCourseModal = () => {
-            modal.classList.remove("active");
-            document.body.classList.remove("modal-open");
-
-            const video = document.getElementById("modalVideo");
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-            }
-        };
-
-        closeModal?.addEventListener("click", closeCourseModal);
-
-        modal.addEventListener("click", (event) => {
-            if (event.target === modal) {
-                closeCourseModal();
-            }
+        modal.querySelector(".close-modal")?.addEventListener("click", closeModal);
+        modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+        document.addEventListener("keydown", e => { if (e.key === "Escape" && modal.classList.contains("active")) closeModal(); });
+        modal.querySelector(".modal-arrow.prev")?.addEventListener("click", () => {
+            const items = media[activeCourse] || [];
+            if (!items.length) return;
+            activeMediaIndex = (activeMediaIndex - 1 + items.length) % items.length;
+            renderMedia();
         });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && modal.classList.contains("active")) {
-                closeCourseModal();
-            }
+        modal.querySelector(".modal-arrow.next")?.addEventListener("click", () => {
+            const items = media[activeCourse] || [];
+            if (!items.length) return;
+            activeMediaIndex = (activeMediaIndex + 1) % items.length;
+            renderMedia();
         });
-
-        modalButton?.addEventListener("click", (event) => {
-
-            event.preventDefault();
-            closeCourseModal();
-
-            document.getElementById("register")?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+        modalButton?.addEventListener("click", e => {
+            e.preventDefault();
+            const select = document.querySelector("#register select");
+            if (select && activeCourse) select.value = courseInfo[activeCourse].value;
+            closeModal();
+            document.getElementById("register")?.scrollIntoView({ behavior: "smooth", block: "start" });
         });
     }
-
 });

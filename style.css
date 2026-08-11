@@ -1050,117 +1050,9 @@ footer{
 }
 
 
-/* ---------- 9. АДАПТИВ ---------- */
-
-@media(max-width:1200px){
-    .about-frame__top{
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .about-frame__subtitle{
-        text-align: center;
-    }
-}
-
-@media(max-width:900px){
-    .about-frame{
-        padding-top:170px;
-    }
-    .about-frame__title{
-        font-size:42px;
-    }
-    .stats{
-        grid-template-columns: repeat(2, 1fr);
-        padding:40px;
-    }
-    .about-hero{
-        padding: 40px 20px;
-    }
-    .about-hero h1{
-        font-size: 60px;
-    }
-    .courses-page{
-        flex-direction: column;
-    }
-    .filters{
-        width: 100%;
-    }
-}
-
-
-/* adaptiv */
-/* Адаптивность */
-@media screen and (max-width: 768px) {
-    /* Для телефонов и маленьких планшетов (портретная ориентация) */
-
-    .slide-content h1 { /* Уменьшаем заголовок */
-        font-size: 24px !important; /* Важно перебить inline-стили из HTML */
-        line-height: 1.5;
-    }
-
-    .slide-content ul li { /* Если есть список */
-        margin-bottom: 10px;
-        font-size: 18px;
-    }
-
-    .slide-content {
-        top: calc(50% + 9vh); /* Сдвигаем текст ниже по центру */
-        padding: 20px; /* Убираем лишние отступы внутри овала */
-    }
-
-    .hero-buttons-new,
-    .slider-dots {
-        bottom: 16%; /* Поднимаем всё вверх, т.к. экран стал выше */
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-    /* Для средних планшетов (альбомная/портретная ориентация) */
-
-    .slide-content h1 {
-        font-size: 36px;
-    }
-
-    .slide-content {
-        max-width: none; /* Растягиваем текст на всю ширину */
-        width: 80%;
-        left: 10%;
-    }
-
-    .hero-buttons-new a {
-        padding: 14px 28px; /* Делаем кнопки чуть уже для удобства */
-    }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1200px) {
-    /* Для больших планшетов и ноутбуков с маленьким разрешением */
-
-    .slide-content h1 {
-        font-size: 48px;
-    }
-
-    .hero-buttons-new,
-    .slider-dots {
-        bottom: auto; /* Возвращаемся к фиксированным значениям */
-        transform: none;
-    }
-
-    .hero-buttons-new {
-        position: relative; /* Вытаскиваем их из абсолютного позиционирования */
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        margin-top: 40px; /* Отступ от текста */
-    }
-
-    .slider-dots {
-        margin-top: 20px; /* Переносим точки вниз */
-    }
-}
-
-
-
-
+/* =========================
+   COURSE MODAL
+   ========================= */
 .course-modal{
     position:fixed;
     inset:0;
@@ -1169,1077 +1061,214 @@ footer{
     justify-content:center;
     align-items:center;
     z-index:9999;
+    padding:20px;
 }
-
-.course-modal.active{
-    display:flex;
-}
-
+.course-modal.active{display:flex;}
 .modal-content{
-    width:900px;
-    max-width:95%;
+    position:relative;
+    width:min(900px, 100%);
+    max-height:min(760px, 92vh);
     background:#fff;
     border-radius:35px;
     overflow:hidden;
     display:grid;
     grid-template-columns:1fr 1fr;
 }
-
 .modal-left{
     position:relative;
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:550px;
+    background:#f7f7f7;
 }
+.media-slider{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:45px;}
+.modal-left img,.modal-left video{width:100%;max-width:100%;max-height:480px;object-fit:contain;border-radius:18px;}
+.modal-right{padding:40px;border-left:8px solid #ff4f87;display:flex;flex-direction:column;min-width:0;}
+.modal-right h2{font-size:42px;margin-bottom:20px;overflow-wrap:anywhere;}
+.modal-right h3{margin-bottom:15px;}
+.modal-right ul{margin-left:20px;line-height:2;flex:1;overflow:auto;}
+.modal-btn{width:280px;min-height:60px;margin-top:30px;align-self:center;display:flex;justify-content:center;align-items:center;background:#ff4f87;color:#fff;text-decoration:none;border-radius:30px;font-weight:700;cursor:pointer;transition:transform .35s ease,background .35s ease;}
+.modal-btn:hover{background:#ff2d74;transform:translateY(-3px);}
+.close-modal{position:absolute;right:20px;top:10px;font-size:40px;line-height:1;cursor:pointer;z-index:20;color:#222;}
+.modal-arrow{position:absolute;width:45px;height:45px;border:none;border-radius:50%;background:#ff4f87;color:#fff;cursor:pointer;z-index:5;transition:transform .25s ease;}
+.modal-arrow:hover{transform:scale(1.08);}
+.modal-arrow.prev{left:20px;}
+.modal-arrow.next{right:20px;}
 
-.modal-left img{
-    width:90%;
-    max-height:450px;
-    object-fit:contain;
-}
+/* =========================
+   MOBILE MENU
+   ========================= */
+.mobile-menu-toggle{display:none;border:0;background:#ff4b6e;color:#fff;width:46px;height:46px;border-radius:50%;cursor:pointer;position:relative;z-index:1101;flex:0 0 auto;}
+.mobile-menu-toggle span,.mobile-menu-toggle::before,.mobile-menu-toggle::after{content:"";position:absolute;left:12px;width:22px;height:2px;background:#fff;border-radius:3px;transition:.3s;}
+.mobile-menu-toggle::before{top:14px}.mobile-menu-toggle span{top:21px}.mobile-menu-toggle::after{top:28px}
+.mobile-menu-toggle.active::before{top:21px;transform:rotate(45deg)}
+.mobile-menu-toggle.active span{opacity:0}
+.mobile-menu-toggle.active::after{top:21px;transform:rotate(-45deg)}
 
-.modal-right{
-    padding:40px;
-    border-left:8px solid #ff4f87;
-    display:flex;
-    flex-direction:column;
-}
-
-.modal-right h2{
-    font-size:42px;
-    margin-bottom:20px;
-}
-
-.modal-right h3{
-    margin-bottom:15px;
-}
-
-.modal-right ul{
-    margin-left:20px;
-    line-height:2;
-    flex:1;
-}
-
-.modal-btn{
-    width:280px;
-    height:60px;
-    margin-top:30px;
-    align-self:flex-end;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#ff4f87;
-    color:#fff;
-    text-decoration:none;
-    border-radius:30px;
-    font-weight:700;
-}
-
-.modal-btn:hover{
-    background:#ff2d74;
-}
-
-.close-modal{
-    position:absolute;
-    right:30px;
-    top:20px;
-    font-size:40px;
-    cursor:pointer;
-    z-index:20;
-}
-
-.modal-arrow{
-    position:absolute;
-    width:45px;
-    height:45px;
-    border:none;
-    border-radius:50%;
-    background:#ff4f87;
-    color:#fff;
-    cursor:pointer;
-}
-
-.modal-arrow.prev{
-    left:20px;
-}
-
-.modal-arrow.next{
-    right:20px;
-}
-
-/* =========================================================
+/* =========================
    RESPONSIVE DESIGN
-   Десктопные стили выше не меняются.
-   Ниже — только адаптация существующей версии.
-   ========================================================= */
-
-html,
-body {
-    max-width: 100%;
-}
-
-body {
-    overflow-x: hidden;
-}
-
-img,
-video {
-    max-width: 100%;
-}
-
-button,
-a,
-input,
-select,
-textarea {
-    -webkit-tap-highlight-color: transparent;
-}
-
-
-/* =========================
-   TABLETS / SMALL LAPTOPS
    ========================= */
+img,video{max-width:100%;}
+button,a,input,select,textarea{max-width:100%;}
 
-@media (max-width: 1024px) {
-
-    header {
-        width: calc(100% - 28px);
-        padding: 14px 22px;
-    }
-
-    .courses-page {
-        gap: 25px;
-        padding: 35px 25px;
-    }
-
-    .filters {
-        width: 270px;
-        flex: 0 0 270px;
-    }
-
-    .courses-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px;
-    }
-
-    .best-grid {
-        grid-template-columns: repeat(2, minmax(260px, 300px));
-    }
-
-    .teacher-info {
-        width: 55%;
-        margin: 30px;
-        padding: 30px;
-    }
-
-    .teacher-photo {
-        width: 45%;
-        height: 560px;
-    }
-
-    .teacher-title .blue {
-        font-size: clamp(40px, 5vw, 58px);
-    }
-
-    .teacher-title .red {
-        font-size: clamp(32px, 4vw, 46px);
-    }
-
-    .teacher-text {
-        gap: 24px;
-    }
-
-    .registration {
-        width: calc(100% - 50px);
-        margin: 80px auto;
-        padding: 40px;
-    }
-
-    .stats {
-        padding: 55px 35px;
-    }
-
-    .about-frame__top {
-        width: calc(100% - 50px);
-    }
+@media (max-width:1200px){
+    .about-frame__top{grid-template-columns:1fr;}
+    .about-frame__subtitle{text-align:center;}
+    .courses-page{gap:25px;padding:30px;margin-top:120px;}
+    .filters{width:290px;flex:0 0 290px;}
+    .courses-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .course-card{min-width:0;}
 }
 
-
-/* =========================
-   MOBILE NAV + TABLET PORTRAIT
-   ========================= */
-
-.mobile-menu-toggle {
-    display: none;
+@media (max-width:1024px){
+    header{height:78px;padding:12px 20px;}
+    .logo img{height:48px;}
+    nav a{margin-left:8px;padding:9px 13px;}
+    .hero-slider{height:100svh;min-height:650px;}
+    .slide-content{width:min(86%,900px);max-width:900px;padding:30px;}
+    .slide-content h2{font-size:clamp(24px,3.5vw,34px);}
+    .slide-list{font-size:19px;}
+    .hero-buttons{width:min(92%,900px);bottom:12%;gap:12px;}
+    .hero-btn{padding:13px 18px;}
+    .teacher-section{min-height:520px;}
+    .teacher-photo{height:520px;}
+    .teacher-info{width:55%;margin:25px;padding:28px;}
+    .teacher-title .blue{font-size:clamp(40px,6vw,58px);}
+    .teacher-title .red{font-size:clamp(32px,4.5vw,46px);}
+    .teacher-title .sub{font-size:18px;}
+    .teacher-text{gap:20px;}
+    .best-grid{grid-template-columns:repeat(2,minmax(0,280px));}
+    .registration{width:calc(100% - 50px);}
 }
 
-@media (max-width: 768px) {
-
-    /* ---------- GLOBAL ---------- */
-
-    body {
-        min-width: 0;
-    }
-
-    /* ---------- HEADER ---------- */
-
-    header {
-        top: 10px;
-        width: calc(100% - 20px);
-        height: 68px;
-        padding: 10px 16px;
-        border-radius: 22px;
-    }
-
-    .logo img {
-        height: 44px;
-        max-width: 170px;
-        object-fit: contain;
-    }
-
-    .mobile-menu-toggle {
-        width: 46px;
-        height: 46px;
-        padding: 10px;
-        border: 0;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, .8);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        cursor: pointer;
-        flex: 0 0 46px;
-        z-index: 1101;
-    }
-
-    .mobile-menu-toggle span {
-        display: block;
-        width: 23px;
-        height: 2px;
-        border-radius: 3px;
-        background: #FF4B6E;
-        transition: transform .3s ease, opacity .2s ease;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-    }
-
-    header nav {
-        position: fixed;
-        top: 76px;
-        right: 0;
-        width: min(280px, calc(100vw - 30px));
-        padding: 14px;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        background: rgba(247, 247, 247, .97);
-        border-radius: 22px;
-        box-shadow: 0 18px 45px rgba(0,0,0,.16);
-        transform: translateY(-12px) scale(.98);
-        transform-origin: top right;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
-    }
-
-    header nav.mobile-open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0) scale(1);
-    }
-
-    header nav a,
-    .nav-btn {
-        margin-left: 0;
-        min-height: 48px;
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 15px;
-    }
-
-    /* ---------- HERO ---------- */
-
-    .hero-slider {
-        height: 100svh;
-        min-height: 680px;
-        max-height: 900px;
-    }
-
-    .slide-content {
-        top: 44%;
-        width: calc(100% - 36px);
-        max-width: none;
-        padding: 22px 18px;
-        border-radius: 23px;
-    }
-
-    .slide-content h2 {
-        font-size: clamp(21px, 5.2vw, 30px);
-        line-height: 1.25;
-    }
-
-    .slide-list {
-        margin-top: 14px;
-        padding-left: 22px;
-        font-size: clamp(16px, 4vw, 22px);
-        text-align: left;
-    }
-
-    .slide-list li {
-        margin-bottom: 7px;
-    }
-
-    .slider-btn {
-        width: 48px;
-        height: 48px;
-        font-size: 20px;
-        top: 43%;
-    }
-
-    .prev {
-        left: 10px;
-    }
-
-    .next {
-        right: 10px;
-    }
-
-    .hero-buttons {
-        width: calc(100% - 32px);
-        bottom: 8%;
-        gap: 9px;
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .hero-btn {
-        min-height: 48px;
-        width: 100%;
-        padding: 12px 16px;
-        border-radius: 15px;
-        text-align: center;
-        font-size: 14px;
-    }
-
-    .slider-dots {
-        bottom: 2.5%;
-        display: flex;
-        gap: 9px;
-    }
-
-    .dot {
-        width: 11px;
-        height: 11px;
-        flex: 0 0 11px;
-    }
-
-    /* ---------- TEACHERS ---------- */
-
-    .teacher-section {
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-end;
-    }
-
-    .teacher-section.orange-section {
-        flex-direction: column;
-    }
-
-    .teacher-info {
-        order: 1;
-        width: calc(100% - 28px);
-        margin: 20px 14px 0;
-        padding: 24px 20px;
-        border-radius: 25px;
-    }
-
-    .teacher-photo {
-        order: 2;
-        width: 100%;
-        height: auto;
-        min-height: 330px;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        margin-top: 10px;
-    }
-
-    .orange-section .teacher-photo {
-        order: 2;
-    }
-
-    .orange-section .teacher-info {
-        order: 1;
-    }
-
-    .teacher-photo img {
-        width: 100%;
-        height: auto;
-        max-height: 430px;
-        object-fit: contain;
-        object-position: bottom center;
-    }
-
-    .teacher-title .blue {
-        font-size: clamp(38px, 11vw, 58px);
-        line-height: 1;
-    }
-
-    .teacher-title .red {
-        font-size: clamp(30px, 8.5vw, 46px);
-        line-height: 1.05;
-        overflow-wrap: anywhere;
-    }
-
-    .teacher-title .sub {
-        font-size: 17px;
-        line-height: 1.45;
-    }
-
-    .teacher-text {
-        display: block;
-    }
-
-    .teacher-text p,
-    .teacher-info > p {
-        font-size: 16px;
-        line-height: 1.55;
-        margin-bottom: 15px;
-    }
-
-    /* ---------- BESTSELLERS ---------- */
-
-    .bestsellers {
-        padding: 65px 16px;
-    }
-
-    .section-title {
-        font-size: clamp(34px, 9vw, 48px);
-        margin-bottom: 30px;
-    }
-
-    .best-grid {
-        grid-template-columns: 1fr;
-        width: 100%;
-        gap: 20px;
-    }
-
-    .bestseller {
-        width: 100%;
-        min-height: 0;
-    }
-
-    .bestseller h3 {
-        font-size: 21px;
-    }
-
-    .course-photo {
-        height: 190px;
-    }
-
-    .course-desc {
-        font-size: 15px;
-    }
-
-    .price {
-        font-size: 24px;
-    }
-
-    .course-btn {
-        min-height: 50px;
-    }
-
-    /* ---------- REGISTRATION ---------- */
-
-    .registration {
-        width: calc(100% - 28px);
-        margin: 65px auto;
-        padding: 28px 18px;
-        border-radius: 25px;
-    }
-
-    .registration h2 {
-        font-size: clamp(30px, 8vw, 42px);
-        line-height: 1.1;
-    }
-
-    .form-subtitle {
-        font-size: 15px;
-        line-height: 1.5;
-        margin-bottom: 28px;
-    }
-
-    .register-form {
-        gap: 16px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .input-group input,
-    .input-group select,
-    .input-group textarea {
-        width: 100%;
-        min-height: 48px;
-        font-size: 16px;
-    }
-
-    .input-group textarea {
-        min-height: 130px;
-    }
-
-    .checkbox {
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .checkbox input {
-        width: 20px;
-        height: 20px;
-        flex: 0 0 20px;
-        margin-top: 2px;
-    }
-
-    .checkbox label {
-        font-size: 14px;
-        line-height: 1.45;
-    }
-
-    .submit-btn {
-        min-height: 54px;
-        height: auto;
-        padding: 13px 18px;
-    }
-
-    /* ---------- COURSES ---------- */
-
-    .courses-page {
-        flex-direction: column;
-        width: 100%;
-        gap: 25px;
-        padding: 100px 14px 30px;
-        margin-top: 0;
-    }
-
-    .filters {
-        width: 100%;
-        flex: none;
-        padding: 22px 18px;
-        border-radius: 24px;
-    }
-
-    .filters h2 {
-        font-size: clamp(27px, 7vw, 34px);
-    }
-
-    .filter-btn {
-        min-height: 48px;
-        font-size: 15px;
-        padding: 12px 15px;
-    }
-
-    .filter-btn:hover {
-        transform: none;
-    }
-
-    .filter-btn.active {
-        transform: none;
-    }
-
-    .courses-grid {
-        width: 100%;
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .course-card {
-        width: 100%;
-        min-height: 0;
-    }
-
-    .course-card.is-hidden {
-        display: none;
-    }
-
-    .course-card h3 {
-        font-size: 21px;
-        min-height: 0;
-        line-height: 1.25;
-    }
-
-    .course-card p {
-        font-size: 23px;
-    }
-
-    /* ---------- ABOUT ---------- */
-
-    .about-hero {
-        min-height: 100svh;
-        padding: 110px 18px 45px;
-    }
-
-    .about-hero h1 {
-        font-size: clamp(52px, 16vw, 90px);
-        line-height: .9;
-        overflow-wrap: anywhere;
-    }
-
-    .about-hero p {
-        width: 100%;
-        padding: 22px 18px;
-        font-size: 18px;
-        line-height: 1.5;
-        border-radius: 24px;
-    }
-
-    .about-frame {
-        padding-top: 105px;
-        padding-bottom: 45px;
-    }
-
-    .about-frame__top {
-        width: calc(100% - 28px);
-        margin: 35px auto;
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .about-frame__title {
-        font-size: clamp(42px, 12vw, 72px);
-    }
-
-    .about-frame__subtitle {
-        padding: 24px 18px;
-        font-size: 17px;
-        line-height: 1.6;
-    }
-
-    .about-frame__bottom {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 35px 14px;
-    }
-
-    .about-mini {
-        min-height: 170px;
-        padding: 25px 18px;
-    }
-
-    .about-mini h3 {
-        font-size: 27px;
-    }
-
-    .about-mini p {
-        font-size: 16px;
-    }
-
-    .stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-        padding: 45px 14px;
-    }
-
-    .stat {
-        padding: 22px 12px;
-        border-radius: 20px;
-    }
-
-    .stat h2 {
-        font-size: clamp(34px, 10vw, 48px);
-    }
-
-    .stat p {
-        font-size: 14px;
-        line-height: 1.4;
-    }
-
-    .about-cta {
-        padding: 65px 18px;
-    }
-
-    .about-cta h2 {
-        font-size: clamp(31px, 8vw, 48px);
-        line-height: 1.15;
-        margin-bottom: 25px;
-    }
-
-    /* ---------- FOOTER ---------- */
-
-    footer {
-        margin-top: 55px;
-        padding: 40px 22px;
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .footer-left,
-    .footer-center,
-    .footer-right {
-        width: 100%;
-    }
-
-    .footer-center,
-    .footer-right {
-        gap: 8px;
-    }
-
-    .footer-left img {
-        max-width: 190px;
-        height: auto;
-    }
-
-    .faq-btn {
-        min-height: 48px;
-    }
-
-    /* ---------- SCROLL TOP ---------- */
-
-    #scrollTopBtn {
-        width: 52px;
-        height: 52px;
-        bottom: 18px;
-        font-size: 23px;
-    }
-
-    /* ---------- MODAL ---------- */
-
-    .course-modal {
-        padding: 12px;
-        overflow-y: auto;
-        align-items: flex-start;
-    }
-
-    .modal-content {
-        width: 100%;
-        max-width: 100%;
-        margin: 65px 0 20px;
-        border-radius: 24px;
-        grid-template-columns: 1fr;
-    }
-
-    .modal-left {
-        min-height: 280px;
-        padding: 35px 35px 20px;
-    }
-
-    .modal-left img {
-        width: 100%;
-        max-height: 260px;
-    }
-
-    .modal-right {
-        padding: 25px 20px 22px;
-        border-left: 0;
-        border-top: 7px solid #ff4f87;
-    }
-
-    .modal-right h2 {
-        font-size: clamp(29px, 8vw, 42px);
-        line-height: 1.1;
-    }
-
-    .modal-right ul {
-        line-height: 1.6;
-        padding-left: 5px;
-    }
-
-    .modal-btn {
-        width: 100%;
-        height: 54px;
-        margin-top: 22px;
-    }
-
-    .close-modal {
-        right: 15px;
-        top: 8px;
-        font-size: 34px;
-    }
-
-    .modal-arrow {
-        width: 42px;
-        height: 42px;
-    }
-
-    .modal-arrow.prev {
-        left: 8px;
-    }
-
-    .modal-arrow.next {
-        right: 8px;
-    }
+@media (max-width:768px){
+    body{overflow-x:hidden;}
+    header{top:10px;width:calc(100% - 20px);height:64px;padding:8px 12px;border-radius:22px;}
+    .logo img{height:43px;max-width:180px;object-fit:contain;}
+    .mobile-menu-toggle{display:block;}
+    nav{position:fixed;top:74px;left:0;right:0;margin:0 auto;width:calc(100% - 20px);padding:10px;display:flex;flex-direction:column;gap:7px;background:rgba(247,247,247,.97);border-radius:22px;box-shadow:0 15px 35px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translateY(-10px);transition:.3s;pointer-events:none;}
+    nav.mobile-open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;}
+    nav a{display:flex;align-items:center;justify-content:center;margin:0;min-height:48px;border-radius:15px;padding:10px 15px;}
+
+    .hero-slider{height:100svh;min-height:650px;}
+    .slide img{object-position:center;}
+    .slide-content{top:43%;width:calc(100% - 32px);padding:22px 18px;border-radius:24px;}
+    .slide-content h2{font-size:clamp(21px,5.4vw,27px);line-height:1.25;}
+    .slide-list{font-size:16px;line-height:1.4;margin-top:14px;padding-left:22px;}
+    .slide-list li{margin-bottom:7px;}
+    .slider-btn{width:46px;height:46px;font-size:20px;top:44%;}
+    .slider-btn.prev{left:8px}.slider-btn.next{right:8px}
+    .hero-buttons{position:absolute;left:16px;right:16px;bottom:82px;width:auto;transform:none;display:grid;grid-template-columns:1fr;gap:8px;}
+    .hero-btn{width:100%;min-height:48px;padding:11px 14px;border-radius:15px;font-size:14px;text-align:center;}
+    .slider-dots{bottom:20px;display:flex;gap:10px;}
+    .dot{width:11px;height:11px;display:block;}
+
+    .teacher-section{min-height:0;display:flex;flex-direction:column;padding:0;align-items:stretch;}
+    .teacher-section.orange-section .teacher-photo{order:1;}
+    .teacher-section.orange-section .teacher-info{order:2;}
+    .teacher-photo{width:100%;height:auto;min-height:0;display:flex;align-items:flex-end;justify-content:center;}
+    .teacher-photo img{width:100%;height:auto;max-height:430px;object-fit:contain;object-position:center bottom;display:block;}
+    .teacher-info{width:auto;margin:16px;border-radius:24px;padding:22px;}
+    .teacher-title .blue{font-size:clamp(36px,11vw,50px);}
+    .teacher-title .red{font-size:clamp(29px,8.5vw,42px);line-height:1.05;}
+    .teacher-title .sub{font-size:17px;line-height:1.45;}
+    .teacher-text{display:block;}
+    .teacher-text p{margin-bottom:14px;}
+
+    .bestsellers{padding:60px 16px;}
+    .section-title{font-size:clamp(32px,10vw,46px);margin-bottom:28px;}
+    .best-grid{grid-template-columns:1fr;gap:18px;max-width:420px;margin:0 auto;}
+    .bestseller{width:100%;min-height:430px;}
+    .course-photo{height:190px;}
+
+    .registration{width:calc(100% - 28px);margin:60px auto;padding:26px 18px;border-radius:25px;}
+    .registration h2{font-size:clamp(30px,8vw,40px);line-height:1.1;}
+    .form-row{grid-template-columns:1fr;gap:16px;}
+    .register-form{gap:16px;}
+    .input-group input,.input-group select,.input-group textarea{width:100%;font-size:16px;}
+    .checkbox{align-items:flex-start;}
+    .checkbox input{margin-top:5px;flex:0 0 auto;}
+    .submit-btn{min-height:52px;}
+
+    .courses-page{display:flex;flex-direction:column;gap:20px;padding:18px 14px;margin-top:92px;align-items:stretch;}
+    .filters{width:100%;flex:0 0 auto;padding:20px;border-radius:22px;}
+    .filters h2{font-size:26px;margin-bottom:22px;}
+    .filter-group{margin-bottom:22px;padding-bottom:18px;}
+    .filter-btn{min-height:46px;margin-bottom:8px;padding:11px 14px;font-size:15px;}
+    .reset-filters{min-height:50px;}
+    .courses-grid{width:100%;grid-template-columns:1fr;gap:18px;}
+    .course-card{width:100%;min-height:430px;border-radius:22px;}
+    .course-card h3{font-size:21px;line-height:1.2;min-height:52px;}
+    .course-card p{margin-bottom:0;}
+    .course-card .course-btn{margin-top:auto;min-height:50px;}
+
+    .about-hero{min-height:100svh;padding:110px 18px 50px;}
+    .about-hero h1{font-size:clamp(52px,17vw,80px);}
+    .about-hero p{font-size:18px;padding:22px;}
+    .stats{grid-template-columns:1fr 1fr;gap:12px;padding:30px 16px;}
+    .stat{padding:20px 12px;}.stat h2{font-size:38px;}
+    .about-cta{padding:65px 20px;}.about-cta h2{font-size:36px;}
+    .about-frame{padding:100px 16px 50px;min-height:0;}
+    .about-frame__top{margin:40px auto;gap:22px;}
+    .about-frame__title{font-size:clamp(38px,11vw,60px);letter-spacing:2px;}
+    .about-frame__subtitle{padding:22px;font-size:18px;line-height:1.55;}
+    .about-mini{min-height:190px;padding:22px;}.about-mini h3{font-size:28px;}
+
+    footer{margin-top:50px;padding:35px 20px;gap:28px;flex-direction:column;}
+    .footer-left,.footer-center,.footer-right{width:100%;}
+    .footer-left img{height:50px;max-width:180px;object-fit:contain;}
+    .footer-center a{padding:5px 0;}
+
+    .modal-content{grid-template-columns:1fr;width:100%;max-height:94svh;border-radius:25px;overflow:auto;}
+    .modal-left{min-height:270px;height:34svh;max-height:330px;}
+    .media-slider{padding:38px 45px;}
+    .modal-left img,.modal-left video{max-height:280px;}
+    .modal-right{padding:24px 20px 22px;border-left:0;border-top:6px solid #ff4f87;}
+    .modal-right h2{font-size:30px;line-height:1.1;margin-bottom:15px;}
+    .modal-right ul{line-height:1.55;max-height:170px;}
+    .modal-btn{width:100%;min-height:52px;margin-top:18px;}
+    .close-modal{right:14px;top:8px;font-size:34px;}
+    .modal-arrow{width:40px;height:40px;}.modal-arrow.prev{left:8px}.modal-arrow.next{right:8px}
+
+    #scrollTopBtn{width:50px;height:50px;font-size:24px;bottom:18px;}
 }
 
-
-/* =========================
-   SMALL PHONES
-   ========================= */
-
-@media (max-width: 480px) {
-
-    header {
-        width: calc(100% - 16px);
-        top: 8px;
-        height: 62px;
-        padding: 8px 12px;
-        border-radius: 19px;
-    }
-
-    .logo img {
-        height: 40px;
-        max-width: 150px;
-    }
-
-    header nav {
-        top: 70px;
-        width: calc(100vw - 24px);
-    }
-
-    .hero-slider {
-        min-height: 700px;
-    }
-
-    .slide-content {
-        top: 40%;
-        width: calc(100% - 28px);
-        padding: 19px 15px;
-    }
-
-    .slide-content h2 {
-        font-size: clamp(19px, 5.2vw, 24px);
-    }
-
-    .slide-list {
-        font-size: 15px;
-        padding-left: 19px;
-    }
-
-    .slide-list li {
-        margin-bottom: 5px;
-    }
-
-    .slider-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 17px;
-    }
-
-    .prev {
-        left: 7px;
-    }
-
-    .next {
-        right: 7px;
-    }
-
-    .hero-buttons {
-        width: calc(100% - 24px);
-        bottom: 8%;
-    }
-
-    .hero-btn {
-        font-size: 13px;
-        padding: 11px 12px;
-    }
-
-    .teacher-info {
-        width: calc(100% - 20px);
-        margin: 14px 10px 0;
-        padding: 20px 16px;
-    }
-
-    .teacher-photo {
-        min-height: 280px;
-    }
-
-    .teacher-photo img {
-        max-height: 360px;
-    }
-
-    .bestsellers {
-        padding: 50px 12px;
-    }
-
-    .best-grid {
-        gap: 16px;
-    }
-
-    .course-photo {
-        height: 175px;
-    }
-
-    .registration {
-        width: calc(100% - 20px);
-        padding: 24px 14px;
-    }
-
-    .courses-page {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .filters {
-        padding: 20px 14px;
-    }
-
-    .courses-grid {
-        gap: 16px;
-    }
-
-    .about-hero {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    .about-hero p {
-        font-size: 16px;
-        padding: 19px 15px;
-    }
-
-    .stats {
-        grid-template-columns: 1fr;
-        padding: 40px 12px;
-    }
-
-    .about-cta {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    .modal-left {
-        min-height: 240px;
-        padding-left: 30px;
-        padding-right: 30px;
-    }
+@media (max-width:480px){
+    .hero-slider{min-height:620px;}
+    .slide-content{top:40%;padding:18px 15px;}
+    .slide-content h2{font-size:20px;}
+    .slide-list{font-size:15px;}
+    .hero-buttons{bottom:72px;left:12px;right:12px;}
+    .hero-btn{font-size:13px;min-height:46px;}
+    .teacher-info{margin:12px;padding:18px;}
+    .teacher-photo img{max-height:340px;}
+    .bestseller,.course-card{min-height:410px;}
+    .course-photo{height:175px;}
+    .stats{grid-template-columns:1fr;}
 }
 
-
-/* =========================
-   VERY SMALL PHONES
-   ========================= */
-
-@media (max-width: 360px) {
-
-    header {
-        height: 58px;
-    }
-
-    .logo img {
-        height: 37px;
-        max-width: 135px;
-    }
-
-    .mobile-menu-toggle {
-        width: 42px;
-        height: 42px;
-        flex-basis: 42px;
-    }
-
-    .mobile-menu-toggle span {
-        width: 21px;
-    }
-
-    .hero-slider {
-        min-height: 720px;
-    }
-
-    .slide-content {
-        top: 38%;
-    }
-
-    .hero-buttons {
-        bottom: 7%;
-    }
-
-    .hero-btn {
-        font-size: 12px;
-        min-height: 46px;
-    }
-
-    .teacher-title .blue {
-        font-size: 34px;
-    }
-
-    .teacher-title .red {
-        font-size: 28px;
-    }
-
-    .teacher-title .sub {
-        font-size: 15px;
-    }
-
-    .course-card h3,
-    .bestseller h3 {
-        font-size: 19px;
-    }
-
-    .course-card p,
-    .price {
-        font-size: 21px;
-    }
-
-    .registration h2 {
-        font-size: 29px;
-    }
+@media (max-width:360px){
+    header{width:calc(100% - 12px);}
+    .logo img{height:39px;max-width:155px;}
+    .hero-slider{min-height:590px;}
+    .slide-content{width:calc(100% - 26px);top:38%;}
+    .slide-content h2{font-size:18px;}
+    .slide-list{font-size:14px;padding-left:19px;}
+    .hero-buttons{bottom:65px;}
+    .hero-btn{font-size:12px;padding:9px 10px;min-height:44px;}
+    .filters{padding:16px;}.filters h2{font-size:23px;}
+    .course-card h3{font-size:19px;}
+    .registration{width:calc(100% - 20px);padding:22px 14px;}
 }
 
-
-/* =========================
-   REDUCED MOTION
-   ========================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-    }
+@media (hover:none){
+    .bestseller:hover,.course-card:hover,.about-mini:hover{transform:none;}
+    .nav-btn:hover::before{width:0;height:0;}
 }
 
-
-/* =========================
-   TOUCH DEVICES
-   ========================= */
-
-@media (hover: none) {
-
-    .nav-btn:hover,
-    .hero-btn:hover,
-    .course-btn:hover,
-    .filter-btn:hover,
-    .bestseller:hover,
-    .course-card:hover,
-    .reset-filters:hover {
-        transform: none;
-    }
-
-    .course-card:hover .course-photo img,
-    .bestseller:hover .course-photo img {
-        transform: none;
-    }
+@media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
 }
+
+.courses-body{background:linear-gradient(180deg,#e45a1f,#ff8c5a);}
